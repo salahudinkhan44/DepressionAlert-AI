@@ -1,0 +1,219 @@
+================================================================================
+DepressionAlert AI — REQUIREMENTS REFERENCE
+Extracted strictly from: DepalertAi.pdf (Proposal), SRS_DepressionAlertAI 30 %.pdf
+(SRS), SDD_DepressionAlert_AI.pdf (SDD). No additions or assumptions.
+FYP — COMSATS University Islamabad, Abbottabad Campus (BSCS 2023–2027)
+Team: Muhammad Salahudin Khan (SP23-BCS-135), Muhammad Azan (SP23-BCS-116)
+Supervisor: Ms. Sara Shafique
+================================================================================
+
+1. WHAT THE PROJECT IS
+----------------------
+Web-based AI system that detects EARLY SIGNS OF DEPRESSION by analyzing
+USER-PROVIDED social-media text via NLP + ML. Registered users paste text or
+upload CSV (after explicit consent); the system produces a depression risk
+score (0–100) and risk level, stores history, shows trends, and raises a
+high-risk alert with crisis-support resources when a threshold is crossed.
+Advisory/supportive only — NOT a diagnostic or clinical tool.
+Strictly permission-based: nothing is collected automatically.
+
+2. TECHNOLOGY STACK (explicitly named in the PDFs)
+------------------------------------------------
+Frontend : React 18.x SPA, HTML, CSS, JavaScript            (SRS CO-1; Prop §9)
+Backend  : Node.js 20.x LTS, Express.js, REST + JSON        (SRS CO-2, §6.2)
+ML/NLP   : Python 3.11, scikit-learn, spaCy, NLTK           (SRS CO-2, §6.2)
+           — internal, protected service called by Node backend only
+Database : MongoDB                                         (Proposal §9)
+Auth     : JWT-based session tokens                        (Proposal §7.1)
+Comms    : HTTPS/TLS 1.2+, RESTful JSON; CSV via multipart (SRS §6.4)
+Model    : trained on public, ethically sourced mental-health text datasets
+           (SRS CO-3)
+Tools    : GitHub (version control), Postman (API testing) (Proposal §9)
+Browsers : current Chrome, Firefox, Edge — desktop + mobile (SRS OE-1)
+Server OS: Linux                                            (SRS OE-2)
+NOTE: SDD §5 mentions "relational database (e.g. PostgreSQL/MySQL)"
+generically; the Proposal names MongoDB -> MongoDB is authoritative.
+Integer PKs in the data dictionary map to MongoDB _id/ObjectId refs.
+
+3. SIX CORE MODULES (SDD §1, §3, §6)
+------------------------------------
+M1 Data Collection      validateAndStorePost(userId, rawInput, sourceType)
+                        - block if consent FALSE ("Consent required")
+                        - CSV: parse rows, skip empty/duplicate -> Post(CSV)
+                        - manual: reject empty -> Post(Manual)
+M2 NLP Processing       preprocessText(post) [Python service]
+                        - removeSymbolsAndUrls, lowercase, tokenize,
+                          removeStopWords, computeSentiment -> ProcessedText
+                        - extractFeatures -> featureVector
+M3 Depression Detection computeRiskScore(featureVector, processedTextId)
+                        - model.predict_proba -> riskScore = raw*100
+                        - >=70 High, >=40 Moderate, else Low
+                        - store AnalysisResult(model_version, analyzed_at)
+M4 Behavioral Analysis  updateBehavioralPattern(userId, processedText)
+                        - rolling averages: firstPersonDensity,
+                          absolutistLanguage, negativeEmotionWords
+M5 Alert System         evaluateAndGenerateAlert(analysisResult, userId)
+                        - if riskLevel == High: create Alert(status=New),
+                          notifyUser; else null
+M6 Dashboard            aggregated view of results, trends, alerts
+
+4. DATA ENTITIES (SDD §5.1 data dictionary)
+-------------------------------------------
+User              user_id PK | name | email | password_hash (salted) |
+                  consent_given bool | role enum(Standard, Authorized Viewer) |
+                  created_at
+Post              post_id PK | user_id FK | content text |
+                  source enum(Manual, CSV) | submitted_at
+ProcessedText     processed_id PK | post_id FK | cleaned_text |
+                  tokens array<string> | sentiment_score float(-1..1)
+AnalysisResult    analysis_id PK | processed_text_id FK |
+                  risk_score float(0-100) |
+                  risk_level enum(Low, Moderate, High) |
+                  model_version | analyzed_at
+BehavioralPattern pattern_id PK | user_id FK | window_start, window_end |
+                  firstPersonDensity | absolutistLanguage |
+                  negativeEmotionWords   (rolling averages)
+Alert             alert_id PK | analysis_result_id FK | created_at |
+                  message | status enum(New, Viewed, Dismissed)
+Notification      base class -> InAppAlert, EmailAlert(optional) [inheritance]
+CSV uploads: held temporarily server-side, discarded once rows persisted as
+Post records (SDD §5). All analysis data keyed by user_id (SEC-5).
+
+5. USE CASES (SRS §3)
+---------------------
+UC-1 Register: name+email+password -> validate -> create -> redirect Login.
+   Errors: email exists, missing fields, weak password.
+UC-2 Login: email+password -> session -> Dashboard.
+   Errors: bad credentials, no account, auth service down.
+UC-3 View Dashboard: shows info + options: Get Depression Evaluation,
+   View Risk Score, View Analysis History, View Behavioural Trends.
+   Errors: load failure (retry), no analysis (prompt evaluation).
+UC-4 Get Depression Evaluation: Submit Text or Upload CSV -> validate
+   (empty/malformed/invalid/duplicate) -> NLP clean+features -> risk score ->
+   store + display. Errors: empty text, invalid CSV, duplicates, analysis
+   failure (retry).
+UC-5 View Risk Score: latest score + level Low/Medium/High + brief
+   explanation. Errors: no result (prompt evaluation), retrieval failure.
+UC-6 View Analysis History: records by date — date, risk score, risk level,
+   sentiment; selectable detail. Errors: empty state, retrieval failure+retry.
+UC-7 View Behavioural Trends: compare current vs previous — changes in risk
+   score, sentiment, emotional indicators; charts + summaries. Errors:
+   insufficient records (prompt more evaluations), analysis failure.
+UC-8 High-Risk Alert + Crisis Support: score > threshold -> store alert ->
+   display alert -> display helplines/support resources/recommended actions
+   -> user views or dismisses. Errors: store failure (log+retry), resources
+   load failure (emergency message + retry), display failure (keep alert
+   active for next visit).
+
+6. FUNCTIONAL REQUIREMENTS (SRS §4)
+-----------------------------------
+FR-1  registration (name, email, password)
+FR-2  login/auth before protected features
+FR-3  consent verification before accepting/processing text (revocable)
+FR-4  manual text submission (paste)
+FR-5  CSV upload for batch analysis
+FR-6  validation of empty/malformed/invalid/duplicate records
+FR-7  preprocessing: strip symbols, stop words, irrelevant chars
+FR-8  tokenize + extract sentiment/emotional/linguistic features
+FR-9  trained ML model -> risk score + risk level per analysis
+FR-10 behavioral trend analysis over time
+FR-11 auto-generate + store high-risk alert on threshold breach
+FR-12 display crisis-support resources with every high-risk alert
+FR-13 dashboard: latest score, level, alert status, analysis options
+FR-14 history: date, risk score, risk level, sentiment per record
+
+7. QUALITY ATTRIBUTES (SRS §5)
+------------------------------
+USE-1 submit text in <=3 interactions from Dashboard
+USE-2 dashboard shows score/level/alert-status/trend summary on one page
+USE-3 clear labels, instructions, validation + error feedback
+USE-4 responsive: desktop, laptop, tablet, smartphone
+USE-5 consistent navigation, buttons, terminology, colours
+PER-1 single-text risk score within 5 s
+PER-2 95% of dashboard loads < 3 s at >=10 Mbps
+PER-3 CSV acknowledged < 3 s + processing status shown
+PER-4 concurrent users without significant degradation
+SEC-1 HTTPS/TLS 1.2+ for credentials, text, files, results, alerts
+SEC-2 consent-based processing; user can revoke consent
+SEC-3 one-way salted password hashing; never plaintext
+SEC-4 auth required for submit/upload/results/alerts/trends/history
+SEC-5 user data isolation (own data only)
+SEC-6 CSV validation: format, size, malformed, unsafe content
+SEC-7 secure session termination; expired/invalid tokens rejected
+
+8. REQUIRED INTERFACES / PAGES (SRS §6.1 + SDD §8)
+--------------------------------------------------
+P1 Registration & Login
+P2 Dashboard — landing after login. Contents (SDD 8.1.1): Digital Sentiment
+   Score; 7-day usage-time-vs-mood chart; mood-impact-by-platform breakdown;
+   preventive-action shortcuts; live social-media sentiment monitor feed.
+P3 Daily Log / Depression Evaluation (SDD 8.1.2): paste text or upload CSV;
+   Linguistic Marker Analysis panel (first-person pronoun density,
+   absolutist language, negative-emotion words); Sentiment Volatility
+   timeline (hover -> date, sentiment score, risk flag); Post & Comment Deep
+   Dive panel with Social Feed / Direct Messages toggle.
+P4 Analysis Result: risk score, risk level, sentiment result,
+   emotional/linguistic indicators.
+P5 Sentiment Alert (MODAL, SDD 8.1.3): brief non-alarming explanation;
+   "Take a 30-min break" -> status Viewed; "Dismiss" -> status Dismissed.
+P6 Crisis Support & Resources (SDD 8.1.4): helplines, emergency contacts,
+   breathing exercises (START SESSION), guided meditation (OPEN),
+   mood-boosting audio (OPEN PLAYLIST), learning library (articles on
+   sentiment tracking + AI in mental health).
+P7 Analysis History.
+P8 Behavioural Trends.
+P9 Privacy & Profile: privacy info, consent grant/revoke, account details.
+NAV: left sidebar — Dashboard, Daily Log, Privacy, Crisis Support (SDD §8).
+UI: calm design, card-based content, color-coded risk (green low,
+    amber/red elevated), clearly worded non-alarming alert banners.
+Screen objects (SDD 8.2): "START 30-MIN DETOX" (guided detox timer, logs
+against alert); "DISMISS" banner; Preventive Actions list (Mute Keywords,
+Enable Feed Filter, Schedule Nightly Pause); volatility bars hover;
+feed/DM toggle; "Take a 30-min break"; "START SESSION"; "OPEN"/"OPEN
+PLAYLIST".
+
+9. BACKEND API SURFACE (SRS §6.2)
+---------------------------------
+Node/Express must provide: user registration + authentication; manual text
+submission; CSV file upload; submission validation; analysis-result
+retrieval; analysis-history retrieval; behavioral-trend retrieval; alert
+generation + retrieval; crisis-support resource retrieval.
+Python service performs: text cleaning/preprocessing; tokenization;
+sentiment analysis; emotional + linguistic feature extraction;
+behavioral-pattern analysis; risk-score generation; risk-level
+classification. Communication = protected internal API.
+
+10. PROCESS FLOW (SDD §3.2 / DFD)
+---------------------------------
+User (consent) -> submit (paste|CSV) -> validate+store Post (D1) ->
+preprocess -> ProcessedText (D2) -> classify -> AnalysisResult (D3) ->
+update BehavioralPattern (D4) -> threshold? -> Alert (D5) + notify ->
+Dashboard aggregates D3+D4+D5 -> user.
+Data stores D1..D5 = Post, ProcessedText, AnalysisResult,
+BehavioralPattern, Alert.
+
+11. RISK THRESHOLDS (SDD §6.3)
+------------------------------
+risk_score = predict_proba * 100 ; >=70 High (triggers alert), >=40
+Moderate, else Low. SRS UC-5 labels bands Low/Medium/High.
+
+12. EXCLUSIONS (Proposal §6 — do NOT build)
+-------------------------------------------
+Clinical diagnosis; automated contact with monitored individuals;
+image/video analysis; suicide-risk prediction; biometric/wearable data;
+treatment recommendations.
+Proposal-only future scope (NOT in FYP build): direct social-media API
+ingestion, clinician/professional dashboards + roles (Admin, Clinical
+Director, Analyst, Auditor), admin console, email/SMS alerts, PDF/CSV/JSON
+report export, HL7 FHIR/EMR integration, multi-language NLP (50+),
+differential privacy, MFA/OAuth 2.0 institutional login.
+
+13. DEVELOPMENT PHASES (project plan)
+-------------------------------------
+Phase 1 — Frontend: all 9 interfaces + alert modal, routing, auth context,
+          API client, validation/empty/error states, responsive calm UI.
+Phase 2 — Backend: Express API (all §6.2 interfaces), JWT auth, consent
+          enforcement, CSV handling, 6-module pipeline, Python ML service.
+Phase 3 — MongoDB: Mongoose models per data dictionary, user_id isolation,
+          salted hashing, model_version traceability.
+================================================================================

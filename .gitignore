@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Builds
+frontend/dist/
+
+# Environment / secrets
+.env
+*.env.local
+
+# Temporary CSV uploads (discarded after parsing - SDD 5)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Trained model artifacts (large binaries, stored per MODEL_VERSION)
+ml-service/app/models/artifacts/*
+!ml-service/app/models/artifacts/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

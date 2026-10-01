@@ -1,0 +1,700 @@
+                                                                                                 DepressionAlert AI -- Software Requirements Specification
+
+        COMSATS University Islamabad,
+               Abbottabad Campus
+
+SOFTWARE REQUIREMENTS
+         SPECIFICATION
+
+                        (SRS DOCUMENT)
+
+                        For
+
+              Depression Alert AI
+
+               By
+
+Muhammad Salahudin Khan SP23-BCS-135
+
+Muhammad Azan      SP23-BCS-116
+
+           Supervisor
+
+Ms. Sara Shafique
+
+Bachelor of Science in Computer Science (2023-2027)
+
+                                                                                                                           1
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+Table of Contents
+
+Revision History .................................................................................................................................... 3
+1. Introduction ........................................................................................................................................ 4
+
+   1.1 Purpose.........................................................................................................................................4
+   1.2 Scope............................................................................................................................................4
+2. Overall Description ............................................................................................................................ 4
+   2.1 Product Perspective ...................................................................................................................... 4
+   2.2 Operating Environment ................................................................................................................ 4
+   2.3 Design and Implementation Constraints ....................................................................................... 4
+3. Requirement Identifying Technique ................................................................................................... 5
+   3.1 Use Case Diagram ........................................................................................................................ 5
+   3.2 Use Case Description ................................................................................................................... 6
+   3.3 Use Case Description ................................................................................................................... 6
+   3.4 Use Case Description ................................................................................................................... 7
+   3.5 Use Case Description ................................................................................................................... 7
+   3.6 Use Case Description ................................................................................................................... 8
+   3.7 Use Case Description ................................................................................................................... 8
+   3.8 Use Case Description ................................................................................................................... 9
+4. Specific Requirements........................................................................................................................9
+5. Quality Attributes ............................................................................................................................. 12
+   5.1 Usability ..................................................................................................................................... 13
+   5.2 Performance ............................................................................................................................... 13
+   5.3 Security ...................................................................................................................................... 14
+6. External Interface Requirements ...................................................................................................... 13
+   6.1 User Interfaces............................................................................................................................ 13
+   6.2 Software Interfaces.....................................................................................................................14
+   6.3 Hardware Interfaces ................................................................................................................... 15
+   6.4 Communications Interfaces ........................................................................................................ 15
+7. Project Gantt Chart...........................................................................................................................16
+8. References ........................................................................................................................................ 17
+
+                                                                                                                                         2
+                                                         DepressionAlert AI -- Software Requirements Specification
+
+Revision History
+
+Name                     Date        Reason for Changes  Version
+
+Muhammad Salahudin Khan
+Muhammad Azan
+
+Supervised by
+Ms. Sara Shafique
+
+Signature: ________________________
+
+                                                                  3
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+1. Introduction
+
+1.1 Purpose
+
+This document specifies the software requirements for DepressionAlert AI, a web-based system that analyzes user-
+provided social media text to identify early signs of depression. It defines the functional and non-functional
+requirements, use cases, and interface requirements that will guide the design, development, and testing of the
+system.
+
+1.2 Scope
+
+DepressionAlert AI allows registered users to submit social media posts, either by pasting text directly or uploading
+a CSV file, for analysis using Natural Language Processing and Machine Learning. The system extracts emotional
+and linguistic features from the submitted text, computes a depression risk score, and raises alerts when the score
+exceeds a defined threshold. Results, trends, and alerts are presented through a web dashboard.
+The system provides supportive monitoring and awareness only. It does not perform medical diagnosis or treatment
+and all clinical decisions remain the responsibility of qualified mental health professionals.
+
+2. Overall Description
+
+2.1 Product Perspective
+
+DepressionAlert AI is a new, standalone web application. It is not a replacement for clinical assessment tools; rather,
+it complements traditional mental health evaluation by providing continuous, text-based monitoring between
+clinical visits.
+
+2.2 Operating Environment
+
+OE-1: The system shall operate correctly on current versions of Google Chrome, Mozilla Firefox, and Microsoft
+Edge on desktop and mobile browsers.
+OE-2: The backend API and machine learning services shall run on a Linux-based server environment with Python
+3.11 and Node.js 20.x LTS.
+
+2.3 Design and Implementation Constraints
+
+CO-1: The frontend shall be implemented using React 18.x.
+CO-2: The backend API shall be implemented using Node.js, with AI, NLP, and Machine Learning components
+implemented in Python 3.11 using scikit-learn and spaCy/NLTK.
+CO-3: The machine learning model shall be trained using publicly available, ethically sourced mental health text
+datasets.
+
+                                                                                                                                         4
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+3. Requirement Identifying Technique
+
+Use case analysis was selected as the primary requirement identifying technique for DepressionAlert AI, as it is well suited to
+an interactive, end-user-facing web application.
+
+3.1 Use Case Diagram
+
+Figure: Use Case diagram
+
+3.2 Use Case Description  New User
+UC-1: Register Account
+                          A new user creates an account to access the DepressionAlert AI platform and its
+ Actor(s)                 depression-evaluation features.
+ Description
+ Trigger                  User selects Register Account.
+ Preconditions
+ Postconditions           PRE-1. User does not already have an account.
+                          PRE-2. User has access to a valid email address.
+ Normal Flow
+                          POST-1. Submitted text is stored against the user's profile.
+ Exceptions               POST-2. Text is queued for NLP preprocessing.
+
+                          1.User opens the registration screen.
+                          2. User enters their name, email, and password.
+                          3. System validates the entered information.
+                          4. System creates the account.
+                          5. System displays a registration confirmation and redirects the user to Login.
+
+                          Email is already registered: system displays an error message.
+                          Required information is missing: system asks the user to complete all required fields.
+                          Password does not meet requirements: system asks the user to enter a valid password.
+
+                                                                                                                  5
+UC-2: Login                                                                                 DepressionAlert AI -- Software Requirements Specification
+ Actor(s)
+ Description          Registered User
+ Trigger
+ Preconditions        A registered user enters their credentials to securely access the system.
+ Postconditions
+                      User selects Login after opening the application or completing registration.
+ Normal Flow
+                      PRE-1. User is authenticated.
+ Exceptions           PRE-2. At least one analysis has been completed.
+
+                      PRE-1. User has a registered account.
+                      PRE-2. User is not currently logged in.
+
+                      1. User opens the Login screen.
+                      2. Users enter their email and password.
+                      3. System validates the credentials.
+                      4. System creates an authenticated session.
+                      5. System redirects the user to the Dashboard.
+
+                      Credentials are incorrect: system displays an error message.
+                      Account does not exist: system prompts the user to register.
+                      Authentication service is unavailable: system asks the user to try again later.
+
+UC-3: View Dashboard  Registered User
+ Actor(s)
+ Description          A user views the main dashboard and selects from the available depression-
+ Trigger              monitoring features.
+ Preconditions
+ Postconditions       User successfully logs in or selects Dashboard from the navigation menu.
+
+ Normal Flow          PRE-1. User is authenticated.
+
+ Exceptions           POST-1. Dashboard information is displayed.
+                      POST-2. User can select an available system feature.
+
+                      1. User opens the Dashboard.
+                      2. System retrieves the latest available user information.
+                      3. System displays the available options.
+                      4. User selects one of the following: Get Depression Evaluation, View Risk Score,
+                      View Analysis History, or View Behavioural Trends.
+
+                      Dashboard data cannot be loaded: system displays an error and provides a retry
+                      option.
+                      No analysis exists: system prompts the user to complete a depression evaluation.
+
+                                                                                                         6
+                                        DepressionAlert AI -- Software Requirements Specification
+
+UC-4: Get Depression Evaluation
+
+Actor(s)               Registered User
+
+Description            A user submits social media text manually or uploads a CSV file so the system can
+                       evaluate it for depression-related indicators.
+
+Trigger                User selects Get Depression Evaluation from the Dashboard.
+
+Preconditions          PRE-1. User is authenticated.
+                       PRE-2. User has accepted the data-processing consent.
+                       PRE-3. The submitted text or CSV file contains user-authorized data.
+
+Postconditions         POST-1. Valid text is stored against the user's account.
+                       POST-2. The text is processed using NLP.
+                       POST-3. A risk score and risk level are generated.
+                       POST-4. The result is stored in the analysis history.
+
+Normal Flow            1. User opens the Depression Evaluation screen.
+                       2. User selects Submit Text or Upload CSV File.
+                       3. User enters text or selects a CSV file.
+                       4. System checks for empty, malformed, invalid, or duplicate records.
+                       5. System cleans and processes the valid text using NLP.
+                       6. System extracts sentiment and relevant text features.
+                       7. Depression Detection Model calculates the risk score.
+                       8. System stores and displays the evaluation result.
+
+Exceptions             Submitted text is empty: system asks the user to enter text.
+                       Uploaded file is not a valid CSV: system rejects the file and displays an error.
+                       Duplicate records are detected: system removes or flags duplicate records.
+                       Analysis fails: system displays an error and allows the user to retry.
+
+UC-5: View Risk Score  Registered User
+ Actor(s)
+ Description           A user views the latest depression risk score and its corresponding risk level.
+ Trigger
+ Preconditions         User selects View Risk Score from the Dashboard.
+ Postconditions
+                       PRE-1. User is authenticated.
+ Normal Flow           PRE-2. At least one depression evaluation has been completed.
+
+ Exceptions            POST-1. The latest risk score and risk level are displayed.
+                       POST-2. The stored analysis result remains unchanged.
+
+                       1. User selects View Risk Score.
+                       2. System retrieves the latest analysis result.
+                       3. System displays the risk score.
+                       4. System displays the risk level as Low, Medium, or High.
+                       5. System displays a brief explanation of the result.
+
+                       5.0.E1 No analysis result exists: system prompts the user to complete an evaluation.
+                       5.0.E2 Result cannot be retrieved: system displays an error message.
+
+                                                                                                             7
+                                                             DepressionAlert AI -- Software Requirements Specification
+
+UC-6: View Analysis History
+
+Actor(s)        Registered User
+
+Description     A user views the records of their previous depression evaluations and risk results.
+
+Trigger         User selects View Analysis History from the Dashboard.
+
+Preconditions   PRE-1. User is authenticated.
+                PRE-2. At least one analysis result exists.
+
+Postconditions  POST-1. Previous analysis records are displayed.
+                POST-2. No stored record is modified.
+
+Normal Flow     1. User opens Analysis History.
+                2. System retrieves the user's previous analysis results.
+                3. System arranges the records by analysis date.
+                4. System displays the date, risk score, risk level, and sentiment result.
+                5. User may select a record to view its details.
+
+Exceptions      6.0.E1 No previous analysis exists: system displays an empty-state message.
+                6.0.E2 History cannot be retrieved: system displays an error and retry option.
+
+UC-7:View Behavioral Trends
+
+Actor(s)        Registered User
+
+Description     A user views changes in their risk scores, sentiment, and emotional patterns across
+                previous analyses.
+
+Trigger         User selects View Behavioral Trends from the Dashboard.
+
+Preconditions   PRE-1. User is authenticated.
+                PRE-2. Sufficient previous analysis results are available for comparison.
+
+Postconditions  POST-1. Behavioral trends are displayed.
+                POST-2. Existing analysis records remain unchanged.
+
+Normal Flow     1. User opens Behavioral Trends.
+                2. System retrieves the user's previous analysis results.
+                3. Behavioral Analyzer compares current and previous results.
+                4. System identifies changes in risk score, sentiment, and emotional indicators.
+                5. System displays the trends using charts and summaries.
+
+Exceptions      7.0.E1 Insufficient analysis records exist: system asks the user to complete more
+                evaluations.
+                7.0.E2 Trend analysis fails: system displays an error message.
+
+                                                                                                     8
+                                                  DepressionAlert AI -- Software Requirements Specification
+
+UC-8: Receive High-Risk Alert and Crisis Support
+
+Actor(s)                 Registered User
+
+Description              The system generates a warning and displays crisis-support resources when the
+                         calculated risk score exceeds the configured threshold
+
+Trigger                  Depression Detection Model returns a risk score above the configured high-risk
+                         threshold.
+
+Preconditions            PRE-1. A depression evaluation has been completed.
+                         PRE-2. A valid risk score has been generated.
+                         PRE-3. The risk score exceeds the configured threshold.
+
+Postconditions           POST-1. A high-risk alert is created and stored.
+                         POST-2. The alert is displayed to the user.
+                         POST-3. Crisis-support resources are displayed.
+                         POST-4. The alert appears in the user's dashboard and history.
+
+Normal Flow              1. Depression Detection Model generates the risk score.
+                         2. System compares the score with the configured threshold.
+                         3. System identifies the result as high risk.
+                         4. System creates and stores a high-risk alert.
+                         5. System displays the alert to the user.
+                         6. System displays crisis helplines, support resources, and recommended immediate
+                         actions.
+                         7. User views or dismisses the alert.
+
+Exceptions               Alert cannot be stored: system logs the failure and retries.
+                         Support resources cannot be loaded: system displays the available emergency
+                         message and retry option.
+                         Alert display fails: system keeps the alert active for the next dashboard visit.
+
+4. Specific Requirements
+
+This section itemizes the functional requirements of DepressionAlert AI, organized by module.
+
+FR-1: User Registration  FR-1
+ Identifier
+ Title                   User Registration
+ Requirement
+                         The system shall allow a new user to create an account using their name, email, and
+ Rationale               password.
+
+                         Enables users to securely access the platform and associate analysis results with their
+                         accounts.
+
+FR-2: User Login         FR-2
+ Identifier              User login
+ Title                   The system shall authenticate registered users using valid login credentials before
+ Requirement             allowing access to protected features.
+ Rationale               Protects user information and analysis records from unauthorized access.
+
+                                                                                                                  9
+                                                    DepressionAlert AI -- Software Requirements Specification
+
+FR-3: Consent Verification
+
+Identifier                  FR-3
+
+Title                       Consent Verification
+
+Requirement                 The system shall verify that the user has granted data-processing consent before
+                            accepting or processing submitted text.
+
+Rationale                   Supports ethical, permission-based, and privacy-conscious data handling.
+
+FR-4: Manual Text Submission
+
+Identifier                  FR-4
+
+Title                       Manual Text Submission
+
+Requirement                 The user shall be able to paste social media post text directly into the platform for
+                            analysis.
+
+Rationale                   Allows analysis without requiring users to export their social media data.
+
+FR-5: CSV Upload            FR-5
+ Identifier                 CSV Upload
+ Title                      The user shall be able to upload a CSV file containing multiple posts for batch
+ Requirement                analysis.
+ Rationale                  Supports analysis of larger volumes of historical posts.
+
+FR-6: Submission Validation
+
+Identifier                  FR-6
+
+Title                       Submission Validation
+
+Requirement                 The system shall validate submitted text and CSV records to identify empty,
+                            malformed, invalid, or duplicate entries before processing.
+
+Rationale                   Prevents unsuitable or repeated data from affecting analysis results.
+
+FR-7: Text Preprocessing
+
+Identifier                  FR-7
+
+Title                       Text Preprocessing
+
+Requirement                 The system shall clean valid text by removing unnecessary symbols, stop words, and
+                            irrelevant characters before analysis.
+
+Rationale                   Produces clean and meaningful text for feature extraction and model analysis.
+
+                                                                                                                   10
+                                               DepressionAlert AI -- Software Requirements Specification
+
+FR-8: Sentiment and Feature Extraction
+
+Identifier   FR-8
+
+Title        Sentiment and Feature Extraction
+
+Requirement  The system shall tokenize processed text and extract sentiment, emotional, and
+             linguistic features from each valid submission.
+
+Rationale    Produces the feature set required by the depression-detection model.
+
+FR-9: Risk Score Generation
+
+Identifier   FR-9
+
+Title        Risk Score Generation
+
+Requirement  The system shall use a trained machine-learning model to generate a depression-
+             related risk score and risk level for each completed analysis.
+
+Rationale    Provides the main analysis result for identifying possible depression-related
+             indicators.
+
+FR-10: Behavioral Trend Analysis
+
+Identifier   FR-10
+
+Title        Behavioral Trend Analysis
+
+Requirement  The system shall compare a user's current and previous analysis results to identify
+             changes in sentiment, risk scores, and emotional patterns over time.
+
+Rationale    Helps users understand changes in their emotional and linguistic patterns.
+
+FR-11: Threshold-Based Alerting
+
+Identifier   FR-11
+
+Title        Threshold-Based Alerting
+
+Requirement  The system shall automatically generate and store a high-risk alert when an analysis
+             result exceeds the configured risk threshold.
+
+Rationale    Provides timely awareness when strong depression-related patterns are detected.
+
+FR-12: Crisis Support Resources
+
+Identifier   FR-12
+
+Title        Crisis Support Resources
+
+Requirement  The system shall display appropriate crisis-support information and supportive
+             resources whenever a high-risk alert is generated.
+
+Rationale    Provides immediate access to supportive information when high-risk indicators are
+             detected.
+
+                                                                                                   11
+                                                    DepressionAlert AI -- Software Requirements Specification
+
+FR-13: Dashboard Display
+
+Identifier                FR-13
+
+Title                     Dashboard Display
+
+Requirement               The system shall display the user's latest risk score, current risk level, recent alert
+                          status, and available analysis options on the dashboard.
+
+Rationale                 Provides a clear summary of the user's current monitoring information.
+
+FR-14: Analysis History Display
+
+Identifier                FR-14
+
+Title                     Analysis History Display
+
+Requirement               The system shall allow the user to view previous analysis results, including analysis
+                          date, risk score, risk level, and sentiment result.
+
+Rationale                 Allows users to review previous results and monitor changes over time.
+
+5. Quality Attributes
+
+5.1 Usability
+
+USE-1: Simple Text Submission
+The system shall allow an authenticated user to access the Depression Evaluation screen and submit text for
+analysis in no more than three interactions from the Dashboard.
+
+USE-2: Clear Dashboard Information
+The Dashboard shall display the user's latest risk score, risk level, recent alert status, and behavioural trend
+summary without requiring navigation to another page.
+
+USE-3: Input Guidance and Validation
+The system shall provide clear labels, instructions, validation messages, and error feedback for manual text
+submission and CSV file upload.
+
+USE-4: Responsive Interface
+The user interface shall remain usable and readable on desktop computers, laptops, tablets, and smartphones using
+modern web browsers.
+
+USE-5: Consistent Navigation
+The system shall provide consistent navigation, button placement, terminology, colours, and interface elements
+across all screens.
+
+5.2 Performance
+
+PER-1: Text Analysis Response Time
+The system shall generate and display a risk score for a valid single-text submission within five seconds under
+normal operating conditions.
+
+PER-2: Dashboard Loading Time
+At least 95% of Dashboard requests shall load completely within three seconds when accessed through an internet
+connection of 10 Mbps or faster under normal load.
+
+                                                                                                                   12
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+PER-3: CSV Processing Feedback
+The system shall acknowledge a valid CSV upload within three seconds and display its processing status until the
+batch analysis is completed.
+
+PER-4: Concurrent User Support
+The system shall support multiple concurrent users without causing significant degradation in response time under
+the expected operational load.
+
+5.3 Security and Privacy
+
+SEC-1: Secure Communication
+All user credentials, submitted text, uploaded files, analysis results, and alerts shall be encrypted during
+transmission using HTTPS with TLS 1.2 or higher.
+
+SEC-2: Consent-Based Processing
+The system shall accept and process submitted text only after the user has explicitly granted data-processing
+consent. The user shall be able to revoke this consent.
+
+SEC-3: Password Protection
+User passwords shall be stored using a secure one-way password-hashing algorithm and shall never be stored or
+transmitted as plain text.
+
+SEC-4: Authentication and Authorization
+The system shall require authentication before allowing users to submit text, upload CSV files, or access analysis
+results, alerts, behavioural trends, and history.
+
+SEC-5: User Data Isolation
+The system shall ensure that users can access only their own profile, submissions, analysis results, alerts, and
+history.
+
+SEC-6: Secure File Validation
+The system shall validate uploaded CSV files for permitted format, file size, malformed content, and potentially
+unsafe data before processing.
+
+SEC-7: Session Security
+The system shall securely terminate the user session after logout and shall prevent unauthorized access using
+expired or invalid authentication tokens.
+
+6. External Interface Requirements
+
+6.1 User Interfaces
+
+The system shall provide a responsive web-based user interface accessible through modern desktop and mobile web
+browsers. The interface shall follow a consistent design in terms of colours, typography, navigation, buttons, forms,
+and layout.
+
+The system shall include the following main interfaces:
+
+    · Registration and Login Interface: Allows users to create an account and securely log in to the system.
+
+    · Dashboard Interface: Displays the latest depression risk score, risk level, recent alerts, analysis history,
+
+         and behavioural trends.
+
+    · Daily Log / Depression Evaluation Interface: Allows users to manually paste social media text or upload
+
+         a CSV file for analysis.
+                                                                                                                                       13
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+    · Analysis Result Interface: Displays the generated risk score, risk level, sentiment result, and identified
+
+         emotional or linguistic indicators.
+
+    · Sentiment Alert Interface: Displays a high-risk warning when the calculated risk score exceeds the
+
+         configured threshold.
+
+    · Crisis Support Interface: Provides crisis-support information, emergency contacts, calming exercises, and
+
+         educational resources.
+
+    · Analysis History Interface: Allows users to view their previous analysis results.
+    · Behavioural Trends Interface: Displays changes in risk scores, sentiment, and emotional patterns over
+
+         time.
+
+    · Privacy and Profile Interface: Allows users to review privacy information and manage their account
+
+         details.
+
+6.2 Software Interfaces
+
+The frontend shall be developed using React.js and shall communicate with the Node.js backend through a RESTful API using
+JSON-formatted requests and responses.
+The backend shall provide interfaces for:
+
+     · User registration and authentication
+     · Manual text submission
+     · CSV file upload
+     · Submission validation
+     · Analysis-result retrieval
+     · Analysis-history retrieval
+     · Behavioral-trend retrieval
+     · Alert generation and retrieval
+     · Crisis-support resource retrieval
+The Node.js backend shall communicate with the internal Python-based NLP and machine-learning service through
+a protected service interface.
+The Python service shall perform:
+     · Text cleaning and preprocessing
+     · Tokenization
+     · Sentiment analysis
+     · Emotional and linguistic feature extraction
+     · Behavioral-pattern analysis
+     · Depression-risk score generation
+
+                                                                                                                                       14
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+     · Risk-level classification
+The backend shall store user accounts, text submissions, analysis results, behavioural trends, and alerts in the system
+database.
+
+6.3 Hardware Interfaces
+The system shall not require any dedicated hardware devices.
+Users shall access the system through standard client devices, including:
+
+     · Desktop computers
+     · Laptop computers
+     · Tablets
+     · Smartphones
+Each client device shall require:
+     · A modern web browser
+     · An active internet connection
+The server environment shall provide sufficient processing, memory, and storage resources to run the
+frontend, backend, database, NLP components, and trained machine-learning model.
+6.4 Communications Interfaces
+The system shall use HTTPS for all communication between the client application and the backend server.
+The frontend and backend shall exchange data through RESTful API requests and responses using JSON.
+CSV files shall be transmitted through secure multipart file-upload requests.
+Communication between the Node.js backend and the Python-based NLP and machine-learning service
+shall occur through a protected internal API.
+High-risk alerts shall be delivered through in-application notifications and displayed on the user
+dashboard.
+All communication containing user information, submitted text, analysis results, or alerts shall be
+transmitted through encrypted connections.
+
+                                                                                                                                       15
+                        DepressionAlert AI -- Software Requirements Specification
+
+7. Project Gantt Chart
+
+                        16
+                                                                                                                      DepressionAlert AI -- Software Requirements Specification
+
+8. References
+
+[1] World Health Organization. (2023). Depression. WHO Fact Sheet.
+[2] Coppersmith, G., Dredze, M., & Harman, C. (2014). Quantifying Mental Health Signals in Twitter. Proceedings
+of the Workshop on Computational Linguistics and Clinical Psychology, Baltimore, MD.
+[3] Shen, G., Jia, J., Nie, L., Feng, F., Zhang, C., Hu, T., & Zhu, W. (2017). Depression Detection via Harvesting
+Social Media: A Multimodal Dictionary Learning Solution. Proceedings of IJCAI.
+[4] CLPsych Shared Task. (2015-2022). Computational Linguistics and Clinical Psychology.
+[5] Guntuku, S. C., Yaden, D. B., Kern, M. L., Ungar, L. H., & Eichstaedt, J. C. (2017). Detecting Depression and
+Mental Illness on Social Media: An Integrative Review. Current Opinion in Behavioral Sciences, 18, 43-49.
+[6] DepressionAlert AI Project Proposal, COMSATS University Islamabad, Abbottabad Campus, 2026.
+
+                                                                                                                                       17
+

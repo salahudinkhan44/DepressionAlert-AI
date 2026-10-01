@@ -1,0 +1,631 @@
+         Comsats University Islamabad
+               Abbottabad Campus
+
+                   Project Proposal
+
+                               For
+                    DepressionLearn AI
+
+                                      Depression Alert AI
+
+                               By
+
+                Salahudin Khan SP23-BCS-135
+
+                  Muhammad Azan SP23-BCS-116
+
+                           Supervisor
+
+                   Ms. Sara Shafique
+
+Bachelor of Science in Computer Science (2023-2027)
+
+                                                     i
+                                   Table of Content
+
+1. Introduction........................................................................................................................................... 4
+2. Problem Statement................................................................................................................................ 4
+3. Problem Solution & Objectives ........................................................................................................... 5
+4. Related System Analysis / Literature Review..................................................................................... 7
+
+  Key Differentiators ............................................................................................................................... 7
+5. Vision Statement ................................................................................................................................... 7
+6. Scope ...................................................................................................................................................... 8
+
+  Core Inclusions...................................................................................................................................... 8
+  Exclusions .............................................................................................................................................. 9
+7. SYSTEM ARCHITECTURE AND MODULES................................................................................ 9
+8. System Limitations / Constraints....................................................................................................... 11
+9. Tools and Technologies....................................................................................................................... 12
+10. Project Stakeholders and Roles ....................................................................................................... 12
+  Table: Work Breakdown Structure (WBS) ...................................................................................... 13
+WBS Summary (Month-Wise)............................................................................................................... 14
+
+                                                         ii
+                                  Abstract
+
+DepressionAlert AI is an intelligent mental health monitoring system that leverages artificial
+intelligence to detect early signs of depression through social media behavior analysis. Using
+advanced machine learning algorithms, natural language processing, and sentiment analysis, the
+system identifies emotional patterns, linguistic markers, and behavioral indicators associated with
+depressive states. The platform provides mental health professionals with actionable insights
+through real-time analytics, risk assessment dashboards, and early warning mechanisms. By
+analyzing digital footprints ethically and responsibly, DepressionAlert AI bridges the gap between
+technology and mental healthcare, enabling proactive intervention while maintaining strict privacy
+standards and user consent protocols.
+
+Project Category:
+· Web Application / Information System
+· Artificial Intelligence & Machine Learning
+
+                                                            3
+1. Introduction
+
+Mental health disorders represent one of the most pressing public health challenges of the 21st
+century. Depression alone affects over 280 million people globally, yet nearly two-thirds of those
+affected never seek professional help due to stigma, accessibility barriers, or lack of awareness
+about their condition. The consequences are severe--untreated depression leads to diminished
+quality of life, impaired social functioning, reduced productivity, and in extreme cases, suicide.
+
+The digital revolution has fundamentally transformed how individuals express themselves. Social
+media platforms have evolved into virtual spaces where users openly share emotions, experiences,
+and daily struggles. Research indicates that linguistic patterns, posting frequency, sentiment shifts,
+and social engagement metrics can serve as valuable indicators of mental health status. However,
+the vast volume of unstructured social media data remains largely untapped as a resource for
+mental health monitoring.
+
+Traditional mental health assessment relies heavily on clinical interviews, standardized
+questionnaires, and self-reporting mechanisms--all of which are inherently reactive. Individuals
+typically seek help only after symptoms have escalated, missing critical opportunities for early
+intervention. Furthermore, these conventional methods suffer from response bias, recall errors, and
+limited temporal coverage.
+
+DepressionAlert AI addresses these limitations by introducing a proactive, AI-driven approach to
+mental health monitoring. The system continuously analyzes social media interactions to identify
+subtle linguistic and behavioral changes that may indicate emerging depressive symptoms. By
+employing state-of-the-art natural language processing techniques, transformer-based language
+models, and ensemble machine learning algorithms, the platform detects patterns invisible to
+manual observation.
+
+The system is designed not to replace mental health professionals but to augment their capabilities
+with data-driven insights, enabling earlier detection, better resource allocation, and more informed
+clinical decisions. Built on principles of ethical AI, data privacy, and user consent,
+DepressionAlert AI represents a responsible integration of technology into mental healthcare.
+
+2. Problem Statement
+
+The current landscape of mental health monitoring faces several critical challenges that prevent
+effective early intervention:
+
+Delayed Detection and Intervention: Traditional diagnostic approaches are fundamentally
+reactive. Individuals typically seek professional help only after experiencing severe symptoms for
+extended periods. Studies show that the average delay between symptom onset and treatment
+initiation exceeds 10 years for many mental health conditions. This delay results in prolonged
+suffering, worsening prognosis, and increased treatment complexity.
+
+Limitations of Self-Reporting Mechanisms: Conventional assessment tools rely on individuals
+recognizing and accurately reporting their symptoms. However, depression often impairs self-
+awareness and motivation. Stigma surrounding mental health further discourages honest
+disclosure. Survey-based approaches capture only momentary snapshots, failing to track the
+dynamic nature of mental health over time.
+
+                                                            4
+Absence of Continuous Monitoring: Mental health is not static. it fluctuates based on life events,
+stressors, and environmental factors. Current clinical practices lack mechanisms for continuous
+observation between appointments, creating dangerous blind spots where deterioration can occur
+undetected.
+
+Underutilization of Digital Behavioral Data: Modern individuals generate unprecedented
+volumes of digital data through social media interactions. This data contains rich information
+about emotional states, cognitive patterns, and social functioning. Yet healthcare systems lack
+tools to ethically harness this information for clinical benefit.
+
+Resource Constraints in Mental Healthcare: Mental health services face chronic shortages of
+trained professionals, particularly in underserved regions. Without scalable monitoring tools,
+clinicians struggle to identify high-risk individuals among large populations, leading to inefficient
+resource allocation.
+
+Cultural and Linguistic Barriers: Mental health expression varies significantly across cultures
+and languages. Existing tools often fail to account for these nuances, limiting their effectiveness in
+diverse populations.
+
+These challenges converge to create a critical gap: the absence of scalable, continuous, culturally
+aware systems capable of detecting early warning signs of depression through analysis of digital
+behavior while respecting privacy and ethical boundaries.
+
+3. Problem Solution & Objectives
+
+DepressionAlert AI provides a comprehensive solution through an intelligent, multi-layered
+architecture that transforms social media data into actionable mental health insights.
+
+Solution Architecture
+
+The system operates through several integrated components:
+
+Intelligent Data Pipeline: Ethically collects and processes social media content with explicit user
+consent, applying anonymization and privacy-preserving techniques to protect sensitive
+information.
+
+Advanced NLP Engine: Employs transformer-based models (BERT, RoBERTa) fine-tuned on
+mental health datasets to extract semantic meaning, emotional valence, and linguistic markers
+associated with depression. The engine analyzes sentiment polarity, emotion distribution, lexical
+diversity, syntactic complexity, and temporal patterns.
+
+Multi-Model Detection Framework: Implements ensemble learning combining multiple
+algorithms--gradient boosting, neural networks, and support vector machines--to achieve robust
+classification. The system assigns risk scores ranging from low to critical, accounting for
+confidence levels and temporal consistency.
+
+Behavioral Analytics Module: Tracks longitudinal patterns including posting frequency changes,
+                                                            5
+social interaction metrics, circadian rhythm disruptions, content theme shifts, and engagement
+withdrawal patterns.
+Professional Intelligence Platform: Provides mental health professionals with intuitive
+dashboards featuring risk visualizations, trend analyses, comparative metrics, and alert
+prioritization. The interface supports drill-down capabilities for detailed individual assessment and
+population-level insights for resource planning.
+Ethical Compliance Layer: Implements differential privacy techniques, ensures GDPR/HIPAA
+alignment, maintains comprehensive audit trails, and provides transparency mechanisms
+explaining model decisions.
+
+Core Objectives
+
+O-1: Develop High-Accuracy Detection Models
+Create AI models achieving >85% accuracy in identifying depressive indicators through linguistic
+analysis, validated against clinical diagnostic standards. Implement continuous learning
+mechanisms to improve model performance over time.
+O-2: Enable Proactive Risk Monitoring
+Design real-time monitoring systems that identify behavioral changes within 48 hours of
+occurrence, enabling swift professional intervention before crisis escalation.
+O-3: Create Actionable Professional Tools
+Build comprehensive dashboards that transform complex data into clear, actionable insights,
+reducing cognitive load on mental health professionals while enhancing diagnostic confidence.
+O-4: Ensure Ethical and Privacy-First Implementation
+Establish robust consent frameworks, implement encryption at rest and in transit, provide data
+deletion mechanisms, and ensure full transparency in AI decision-making processes.
+O-5: Validate Clinical Utility
+Conduct rigorous validation studies comparing system predictions against clinical assessments,
+measuring impact on intervention timeliness and patient outcomes.
+O-6: Support Diverse Populations
+Develop culturally-aware models that account for linguistic variations, cultural expression
+differences, and demographic factors affecting mental health manifestation.
+
+                                                            6
+4. Related System Analysis / Literature Review
+
+Existing mental health and sentiment analysis systems provide limited functionality for continuous
+depression monitoring. Most platforms are either survey-based or provide generalized sentiment
+analysis without clinical relevance.
+
+Table: Related System Analysis with Proposed Project
+
+Application      Weakness                      Proposed Project Solution
+
+Sentiment Analysis General emotion detection, no Depression-specific linguistic and
+
+Tools            depression focus              behavioral pattern detection
+
+Online Mental Health Self-reporting, one-time  Continuous automated monitoring
+
+Surveys          assessment
+
+Crisis Hotlines  Reactive intervention after   Early warning and preventive alerts
+                 severe symptoms
+
+Social Media     Focus on marketing insights   Mental health-focused analytics and
+Analytics Tools                                dashboards
+
+Key Differentiators
+
+4.1 Early Detection
+· Detects potential depression indicators before clinical escalation.
+
+4.2 Continuous Monitoring
+· Analyzes social media activity over time instead of one-time assessments.
+
+4.3 AI-Driven Insights
+· Uses machine learning models to identify complex emotional and behavioral trends.
+
+4.4 Ethical & Privacy-Aware Design
+· Ensures data protection and responsible AI implementation.
+
+5. Vision Statement
+
+Our vision is to democratize early mental health intervention through responsible artificial
+intelligence, creating a future where technology serves as an early warning system that
+complements human expertise. We envision a mental healthcare ecosystem where no individual
+suffers in silence due to lack of timely detection, where professionals are empowered with data-
+driven insights to make informed decisions, and where stigma is reduced through normalized,
+continuous mental wellness monitoring.
+
+DepressionAlert AI aspires to be the gold standard in AI-assisted mental health monitoring--a
+system recognized for its clinical accuracy, ethical integrity, and positive impact on patient
+outcomes. We aim to contribute to a paradigm shift from reactive crisis management to proactive
+mental health maintenance, ultimately reducing the global burden of depression through early
+intervention and evidence-based care.
+
+                                                            7
+We envision expanding beyond depression detection to comprehensive mental wellness
+monitoring, supporting diverse populations worldwide, and collaborating with healthcare
+institutions, researchers, and policymakers to establish best practices for AI in mental health.
+
+6. Scope
+
+Core Inclusions
+
+1. Comprehensive Data Analytics
+
+- Multi-platform social media analysis (subject to API availability and ethical approval)
+- Textual content processing including posts, comments, and captions
+- Temporal behavioral pattern tracking
+- Sentiment trajectory analysis
+- Linguistic marker extraction
+- Emoji and non-verbal communication analysis
+
+2. Advanced AI/ML Capabilities
+- Transformer-based NLP models for context-aware text understanding
+- Ensemble classification algorithms for robust prediction
+- Time-series analysis for behavioral change detection
+- Anomaly detection for sudden pattern shifts
+- Explainable AI features for decision transparency
+- Continuous model retraining pipeline
+
+3. Professional Interface System
+- Multi-level risk visualization with confidence intervals
+- Individual user monitoring dashboards
+- Population-level trend analytics
+- Customizable alert thresholds
+- Comparative analysis tools
+- Export functionality for clinical documentation
+
+4. Security and Compliance Infrastructure
+- End-to-end encryption for data transmission
+- Role-based access control with granular permissions
+- Comprehensive audit logging
+- GDPR and HIPAA compliance mechanisms
+- Consent management system
+- Data retention and deletion protocols
+
+5. Reporting and Documentation
+- Automated risk assessment reports
+- Trend analysis summaries
+- Visual data representations
+- Exportable formats (PDF, CSV, JSON)
+- Integration APIs for EMR systems
+
+-
+                                                            8
+Exclusions
+
+    · Clinical Diagnosis: The system provides risk indicators only; formal diagnosis remains
+         the exclusive domain of licensed professionals
+
+    · Direct User Intervention: No automated messaging or direct contact with monitored
+         individuals
+
+    · Real-time Image/Video Analysis: Focus remains on textual content
+    · Predictive Suicide Risk Assessment: While detecting general depressive patterns, explicit
+
+         suicide prediction requires specialized clinical tools
+    · Biometric Data Integration: Excludes physiological sensors, wearables, or biometric
+
+         analysis
+    · Treatment Recommendations: System identifies risk but does not prescribe interventions
+
+7. SYSTEM ARCHITECTURE AND MODULES
+
+The DepressionAlert AI system follows a modular and scalable architecture designed to ensure
+security, ethical compliance, accuracy, and usability. Each module operates independently while
+remaining fully integrated with the overall system to support continuous mental health monitoring
+and professional decision-making.
+
+7.1 User Management and Authentication Module
+
+The User Management and Authentication Module is responsible for controlling system access
+and ensuring secure interaction with the platform. It supports multi-factor authentication,
+including biometric options where applicable, to enhance security. The system enforces a
+structured role hierarchy consisting of System Administrator, Clinical Director, Mental Health
+Professional, Analyst, and Auditor, ensuring that users access only the functionalities relevant to
+their responsibilities.
+Session management mechanisms include automatic timeouts to prevent unauthorized access,
+while strong password policies enforce secure authentication practices. All access attempts are
+logged, and suspicious activities are detected and recorded to prevent misuse. The module also
+manages the complete account lifecycle, including creation, modification, suspension, and
+deletion.
+From a security perspective, the module utilizes JWT-based authentication for secure session
+handling and integrates OAuth 2.0 for institutional account access. Administrative functions can
+be restricted through IP whitelisting, and automated account lockout mechanisms are triggered
+after repeated failed login attempts.
+
+7.2 Ethical Data Collection Module
+
+The Ethical Data Collection Module ensures that all data acquisition processes comply with
+privacy regulations and ethical standards. Social media data is collected using official APIs with
+built-in rate limiting to prevent misuse and platform violations. Before any data ingestion, explicit
+user consent is verified to ensure transparency and compliance.
+An anonymization pipeline removes personally identifiable information from collected data,
+protecting user identity. When consent is provided, limited geographic and demographic metadata
+is collected to enhance analytical accuracy while maintaining privacy.
+Privacy controls include the implementation of differential privacy techniques that add controlled
+statistical noise to sensitive data. The system follows data minimization principles, collecting only
+
+                                                            9
+information necessary for analysis. Data retention is time-bound, with automatic expiration
+policies, and users are provided with the ability to request permanent data deletion.
+
+7.3 Advanced NLP and Preprocessing Module
+
+The Advanced NLP and Preprocessing Module transforms raw social media text into structured,
+analyzable data. The text processing pipeline includes Unicode normalization and character
+encoding standardization to ensure consistency across platforms. Automatic language detection
+supports more than fifty languages, enabling multilingual analysis.
+The module performs tokenization tailored to social media content, followed by lemmatization
+and stemming to normalize words. Named entity recognition is used to extract contextual
+information, while negation handling ensures accurate sentiment interpretation. Sentiment scope
+detection helps determine the true emotional intent of statements.
+Feature engineering techniques include TF-IDF vectorization enhanced with mental health
+vocabulary weighting, word embeddings using models such as Word2Vec, GloVe, and FastText,
+and contextual embeddings generated through BERT and RoBERTa. Additional linguistic features
+such as word count, sentence complexity, and temporal posting patterns are also extracted.
+
+7.4 Depression Detection Engine
+
+The Depression Detection Engine forms the analytical core of the system. It employs a multi-
+model architecture where a fine-tuned transformer-based model, such as MentalBERT, acts as the
+primary classifier. Secondary classifiers including XGBoost, Random Forest, and Support Vector
+Machines contribute to an ensemble voting mechanism that improves prediction robustness.
+The engine generates a depression risk score on a scale of zero to one hundred, accompanied by
+confidence and uncertainty estimates. Model components include sentiment classification into
+positive, negative, and neutral categories, emotion detection covering sadness, joy, anger, fear,
+surprise, and disgust, and a depression indicator classifier identifying depressive language
+patterns. A severity estimator further categorizes risk levels as mild, moderate, or severe.
+Performance optimization is achieved through GPU acceleration for transformer inference, model
+quantization to reduce latency, caching mechanisms for repeated queries, and batch processing to
+enhance system efficiency.
+
+7.5 Behavioral Pattern Analysis Module
+
+The Behavioral Pattern Analysis Module focuses on longitudinal monitoring of user behavior.
+Temporal analytics track changes in posting frequency, identify disruptions in circadian activity
+patterns, and analyze response times to social interactions. Engagement metrics such as likes,
+comments, and shares are continuously monitored to detect withdrawal or reduced interaction.
+Content analysis techniques include topic modeling to identify thematic shifts over time,
+measurement of self-referential language frequency, detection of social isolation indicators,
+analysis of reduced future-oriented language as a proxy for hopelessness, and evaluation of first-
+person singular pronoun usage.
+Anomaly detection methods identify statistical outliers relative to an individual's baseline
+behavior, trigger alerts for sudden behavioral changes, and detect deviations from peer group
+norms.
+
+7.6 Alert and Notification System
+
+The Alert and Notification System provides a tiered warning mechanism to prioritize professional
+attention. Low-level alerts indicate general monitoring status, moderate alerts suggest review
+within forty-eight hours, high-level alerts require attention within twenty-four hours, and critical
+alerts demand immediate professional review.
+
+                                                            10
+Notifications are delivered through in-platform alerts with priority indicators, email messages
+encoded by severity, and optional SMS notifications for critical cases. The system integrates with
+professional scheduling tools to support timely response.
+Alert management features include acknowledgment tracking to confirm professional awareness,
+alert history maintenance for longitudinal review, a false-positive feedback mechanism to improve
+model performance, and escalation protocols for unacknowledged critical alerts.
+
+7.7 Professional Dashboard and Visualization
+
+The Professional Dashboard provides an intuitive interface for mental health professionals to
+interpret system outputs. It includes a real-time risk overview with color-coded indicators,
+individual monitoring panels with timeline-based visualizations, population-level statistics, and a
+prioritized alert queue. Advanced search and filtering capabilities enhance usability.
+Visualization tools include sentiment trend line charts, emotion distribution radar charts,
+behavioral pattern heatmaps, risk trajectory forecasts, and comparative analysis views. Interactive
+features allow drill-down from population-level data to individual cases, annotation for clinical
+notes, case flagging, bookmarking, and report export functionality.
+
+7.8 Reporting and Analytics Module
+
+The Reporting and Analytics Module generates automated reports for individual risk assessments,
+longitudinal trend analysis, population health summaries, and model performance evaluation.
+Analytical capabilities include cohort analysis for group comparisons, predictive analytics for
+forecasting risk trajectories, correlation analysis to identify contributing risk factors, and
+effectiveness metrics to evaluate intervention outcomes. Reports can be exported in PDF, CSV,
+and JSON formats, with support for HL7 FHIR standards to enable integration with electronic
+medical record systems.
+
+7.9 Administrative Console
+
+The Administrative Console enables system-wide management and governance. It supports user
+account administration, permission matrix configuration, system health monitoring, performance
+metric visualization, and API usage tracking.
+Data governance functions include enforcement of data retention policies, consent status
+management, compliance audit trail review, and processing of data deletion requests.
+Model management capabilities include version control, continuous performance monitoring using
+metrics such as accuracy, precision, recall, and F1-score, A/B testing for model updates, and tools
+for bias detection and mitigation.
+
+8. System Limitations / Constraints
+
+L-1: Data Quality Dependency
+System accuracy correlates directly with the volume, diversity, and authenticity of social media
+data. Private accounts, limited posting behavior, or artificial/curated content reduce detection
+reliability.
+
+L-2: Language and Cultural Constraints
+While supporting multiple languages, model performance varies across linguistic contexts.
+Cultural differences in emotional expression, metaphor usage, and mental health stigma affect
+interpretation accuracy.
+
+                                                            11
+L-3: Platform Policy Compliance
+Social media platform terms of service, API limitations, and policy changes constrain data access.
+Rate limits affect real-time monitoring capabilities.
+
+L-4: Clinical Validation Requirements
+AI predictions provide risk indicators, not clinical diagnoses. Professional judgment remains
+essential for assessment and intervention decisions.
+
+L-5: Privacy-Utility Tradeoff
+Strong privacy protections (anonymization, differential privacy) may reduce some detection
+granularity, representing an intentional ethical choice prioritizing user rights.
+
+L-6: Temporal Lag
+Analysis requires sufficient historical data for pattern identification. Newly monitored users may
+have limited initial assessments.
+
+L-7: False Positive/Negative Balance
+Optimizing for sensitivity (catching true cases) increases false positives; optimizing for specificity
+reduces false alarms but may miss cases. System tuning reflects clinical context priorities.
+
+L-8: Technical Infrastructure Dependency
+System requires stable internet connectivity, adequate computing resources, and maintained third-
+party APIs.
+
+9. Tools and Technologies
+
+    · Frontend: React.js, HTML, CSS, JavaScript
+    · Backend: Node.js, Express.js
+    · Database: MongoDB
+    · AI/ML: Python, NLP libraries, Machine Learning models
+    · APIs: Social Media APIs (policy compliant)
+    · Tools: GitHub, Postman
+
+10. Project Stakeholders and Roles
+
+    · Project Sponsor: COMSATS University Islamabad
+    · Students: Final Year Project Development
+    · Supervisor: Project guidance and evaluation
+    · FYP Evaluation Committee: Assessment and review
+
+                                                            12
+11.Work Breakdown Structure (WBS) for DepressionAlert AI
+
+Table: Work Breakdown Structure (WBS)
+
+ID                      Task Name                            Duration Resources
+Phase 1: Analysis
+1                                                            12 Days
+2
+3                       Requirement Gathering & Meetings     4 Days    Team
+4                                                                      Members
+Phase 2: System Design
+5                       Stakeholder Communication            3 Days    Team
+6                       (Supervisor & Committee)                       Members
+7
+8                       Ethical Review & Policy Analysis     3 Days    Team
+9                       (Social Media Data Use)                        Members
+Phase 3: Development
+10                      Existing System & Literature Review  2 Days    Team
+11                                                                     Members
+12
+13                                                           30 Days
+14
+15                      System Architecture Design           6 Days    Team
+16                                                                     Members
+17
+18                      Database Schema & Security Design    6 Days    Team
+                                                                       Members
+
+                        AI Model Design (NLP + ML Pipeline) 8 Days     Team
+                                                                       Members
+
+                        UI/UX Design (Dashboard & Reports) 5 Days      Team
+                                                                       Members
+
+                        Design Documentation                 5 Days    Team
+                                                                       Members
+
+                                                             110 Days
+
+                        User Management Module               8 Days    Team
+                        Development                                    Members
+
+                        Social Media Data Collection Module  10 Days   Team
+                                                                       Members
+
+                        Data Preprocessing & NLP Module      15 Days   Team
+                                                                       Members
+
+                        Depression Detection Model           20 Days   Team
+                        Development                                    Members
+
+                        Behavioral Pattern Analysis Module   12 Days   Team
+                                                                       Members
+
+                        Alert & Notification System          8 Days    Team
+                                                                       Members
+
+                        Professional Dashboard Development   15 Days   Team
+                                                                       Members
+
+                        Admin Console Development            10 Days   Team
+                                                                       Members
+
+                        Reporting & Analytics Module         12 Days   Team
+                                                                       Members
+
+                                   13
+ID                            Task Name                           Duration Resources
+
+Phase 4: AI Model Training &                                      25 Days
+Integration
+
+19                            Dataset Preparation & Labeling      7 Days     Team
+                                                                             Members
+
+20                            Model Training & Validation         10 Days    Team
+                                                                             Members
+
+21                            Model Integration with Backend      8 Days     Team
+                                                                             Members
+
+Phase 5: Testing                                                  30 Days
+
+22                            Unit Testing of Individual Modules  10 Days    Team
+                                                                             Members
+
+23                            System & Integration Testing        10 Days    Team
+                                                                             Members
+
+24                            Performance & Accuracy Evaluation   6 Days     Team
+                                                                             Members
+
+25                            Bug Fixing & Optimization           4 Days     Team
+                                                                             Members
+
+Phase 6: Deployment &                                             15 Days
+Implementation
+
+26                            Deployment on Cloud / Server        7 Days     Team
+                                                                             Members
+
+27                            Security Testing & Final Configuration 5 Days  Team
+                                                                             Members
+
+28                            User Training & System Demonstration 3 Days    Team
+                                                                             Members
+
+Phase 7: Documentation &                                          18 Days
+Completion
+
+29                            Final Project Documentation         8 Days     Team
+                                                                             Members
+
+30                            User Manual & Technical Report      5 Days     Team
+                                                                             Members
+
+31                            Final Presentation Preparation      3 Days     Team
+                                                                             Members
+
+32                            Evaluation, Viva & Submission       2 Days     Team
+                                                                             Members
+
+WBS Summary (Month-Wise)
+
+    · Month 1: Requirement Analysis & System Design
+    · Month 2­4: Development of Modules & AI Models
+    · Month 5: Model Training, Integration & Testing
+    · Month 6: Deployment, Documentation & Final Evaluation
+
+                                                            14
+
