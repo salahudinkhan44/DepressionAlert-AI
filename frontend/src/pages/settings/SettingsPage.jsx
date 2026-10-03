@@ -40,7 +40,7 @@ export default function SettingsPage() {
     <div className="dash-grid">
       <div className="col-7 flex" style={{ flexDirection: 'column', gap: '1.25rem' }}>
         <Card id="mute" title="Mute Keywords" action={<Icon name="mute" size={18} className="muted" />}>
-          <p className="muted small">Hide feed content containing these words — helpful when certain topics spike your sentiment alerts.</p>
+          <p className="muted small">Hide feed content containing these words — helpful when certain topics trigger risk alerts.</p>
           <form onSubmit={addKeyword} className="flex gap-1 mb-2">
             <input className="input" placeholder="Add a keyword…" value={kw} onChange={(e) => setKw(e.target.value)} />
             <button className="btn btn-primary" type="submit"><Icon name="plus" size={15} /></button>
@@ -67,7 +67,7 @@ export default function SettingsPage() {
       </div>
 
       <Card className="col-5" id="pause" title="Schedule Nightly Pause">
-        <p className="muted small">Pause sentiment monitoring and alerts overnight so late-night scrolling doesn't skew your patterns.</p>
+        <p className="muted small">Pause analysis and alerts overnight so late-night scrolling doesn't skew your patterns.</p>
         <div className="setting-row">
           <div className="setting-info">
             <b className="small">Nightly pause</b>

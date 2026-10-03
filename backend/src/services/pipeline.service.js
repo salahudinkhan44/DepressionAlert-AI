@@ -41,7 +41,7 @@ export async function processAndScore(post, mlResult) {
     userId: post.userId,
     cleanedText: mlResult.cleanedText,
     tokens: mlResult.tokens,
-    sentimentScore: mlResult.sentimentScore,
+    emotionalToneScore: mlResult.emotionalToneScore,
     markers: mlResult.markers,
     indicators: mlResult.indicators,
     featureVector: mlResult.featureVector,

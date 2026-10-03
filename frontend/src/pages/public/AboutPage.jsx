@@ -45,7 +45,7 @@ export default function AboutPage() {
               <h2>From text to insight</h2>
               <p className="muted">
                 You submit posts manually or via CSV. The pipeline cleans and tokenizes the text,
-                measures sentiment polarity, and extracts linguistic markers — first-person pronoun
+                estimates emotional tone, and extracts linguistic markers — first-person pronoun
                 density, absolutist language, negative-emotion word frequency — then a trained
                 classifier produces a 0–100 risk score and a Low / Moderate / High level.
               </p>

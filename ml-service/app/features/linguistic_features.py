@@ -6,10 +6,10 @@ language, negative-emotion word frequency (FR-8, SDD 5).
 
 Feature vector order (fixed — the trained artifact in
 app/models/artifacts must be trained on this layout):
-    [sentiment, neg_ratio, abs_ratio, first_person_ratio, pos_ratio,
+    [emotional_tone, neg_ratio, abs_ratio, first_person_ratio, pos_ratio,
      token_count_scaled]
 """
-from .sentiment import NEGATIVE_WORDS, NEGATIVE_PHRASES, POSITIVE_WORDS
+from .emotional_tone import NEGATIVE_WORDS, NEGATIVE_PHRASES, POSITIVE_WORDS
 
 ABSOLUTIST_WORDS = frozenset(
     "always never nothing everything everyone nobody completely totally "
@@ -63,12 +63,12 @@ def detect_indicators(markers: dict) -> list[str]:
     return indicators
 
 
-def extract_features(tokens: list[str], cleaned_text: str, sentiment: float) -> tuple[dict, list[float], list[str]]:
+def extract_features(tokens: list[str], cleaned_text: str, emotional_tone: float) -> tuple[dict, list[float], list[str]]:
     """Return (markers, feature_vector, indicators) (SDD 6.2)."""
     markers = extract_markers(tokens, cleaned_text)
     total = max(markers["token_count"], 1)
     vector = [
-        sentiment,
+        emotional_tone,
         markers["hits"]["negative"] / total,
         markers["hits"]["absolutist"] / total,
         markers["hits"]["first_person"] / total,

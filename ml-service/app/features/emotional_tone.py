@@ -1,7 +1,7 @@
-"""Sentiment analysis.
+"""Lexicon-based emotional tone polarity analysis.
 
-computeSentiment() (SDD 6.2): polarity score in [-1, 1] stored on
-ProcessedText.sentiment_score (FR-8). Lexicon-based: positive and
+computeEmotionalTone() (SDD 6.2): polarity score in [-1, 1] stored on
+ProcessedText.emotional_tone_score (FR-8). Positive and
 negative affect word lists scored against the token stream.
 """
 
@@ -28,7 +28,7 @@ def count_affect(tokens: list[str], cleaned_text: str) -> tuple[int, int]:
     return neg, pos
 
 
-def compute_sentiment(tokens: list[str], cleaned_text: str, risk_score: float) -> float:
+def compute_emotional_tone(tokens: list[str], cleaned_text: str, risk_score: float) -> float:
     """Polarity in [-1, 1]: affect balance adjusted by the risk signal."""
     neg, pos = count_affect(tokens, cleaned_text)
     polarity = (pos - neg) / max(pos + neg, 1) * 0.9

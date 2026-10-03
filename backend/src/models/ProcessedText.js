@@ -2,7 +2,7 @@
 //   post_id: FK -> Post
 //   cleaned_text: Text (after stop-word removal and symbol cleaning)
 //   tokens: Array<String>
-//   sentiment_score: Float (-1 to 1)
+//   emotional_tone_score: Float (-1 to 1)
 // Also stores the extracted feature vector and linguistic markers produced
 // by extractFeatures() (SDD 6.2) so analysis results are traceable.
 import mongoose from 'mongoose';
@@ -24,7 +24,7 @@ const processedTextSchema = new Schema(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true }, // SEC-5
     cleanedText: { type: String, default: '' },
     tokens: { type: [String], default: [] },
-    sentimentScore: { type: Number, min: -1, max: 1, default: 0 },
+    emotionalToneScore: { type: Number, min: -1, max: 1, default: 0 },
     markers: { type: markersSchema, default: () => ({}) },
     indicators: { type: [String], default: [] },
     featureVector: { type: [Number], default: [] },

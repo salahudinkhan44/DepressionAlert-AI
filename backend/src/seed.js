@@ -22,22 +22,22 @@ const ago = (d, h = 0) => new Date(Date.now() - d * DAY - h * 3600000);
 
 // Mirrors frontend/src/data/mockData.js SEED_ANALYSES.
 const SEED_ANALYSES = [
-  { date: ago(13), riskScore: 24, riskLevel: 'Low', sentiment: 0.42, source: 'Manual', excerpt: 'Had a really good day with friends, grateful for small wins.', markers: { firstPersonDensity: 4.1, absolutistLanguage: 0.8, negativeEmotionWords: 1.2 } },
-  { date: ago(12), riskScore: 31, riskLevel: 'Low', sentiment: 0.18, source: 'CSV', excerpt: 'Long week but finally weekend, planning something fun.', markers: { firstPersonDensity: 5.0, absolutistLanguage: 1.0, negativeEmotionWords: 1.6 } },
-  { date: ago(10), riskScore: 38, riskLevel: 'Low', sentiment: 0.05, source: 'Manual', excerpt: 'Feeling a bit tired and flat lately, not sure why.', markers: { firstPersonDensity: 6.2, absolutistLanguage: 1.4, negativeEmotionWords: 3.1 } },
-  { date: ago(9), riskScore: 46, riskLevel: 'Moderate', sentiment: -0.12, source: 'CSV', excerpt: 'Everything feels heavier than it should. Sleep has been off.', markers: { firstPersonDensity: 7.4, absolutistLanguage: 2.6, negativeEmotionWords: 4.4 } },
-  { date: ago(8), riskScore: 44, riskLevel: 'Moderate', sentiment: -0.08, source: 'Manual', excerpt: 'Skipped plans again. I just did not have the energy.', markers: { firstPersonDensity: 6.9, absolutistLanguage: 2.1, negativeEmotionWords: 4.0 } },
-  { date: ago(7), riskScore: 52, riskLevel: 'Moderate', sentiment: -0.22, source: 'Manual', excerpt: 'I keep messing everything up and I am tired of trying.', markers: { firstPersonDensity: 8.8, absolutistLanguage: 3.4, negativeEmotionWords: 5.2 } },
-  { date: ago(6), riskScore: 49, riskLevel: 'Moderate', sentiment: -0.18, source: 'CSV', excerpt: 'Another sleepless night, mind will not stop racing.', markers: { firstPersonDensity: 7.1, absolutistLanguage: 2.2, negativeEmotionWords: 4.8 } },
-  { date: ago(5), riskScore: 58, riskLevel: 'Moderate', sentiment: -0.31, source: 'Manual', excerpt: 'Nobody really notices when I disappear for days anyway.', markers: { firstPersonDensity: 8.2, absolutistLanguage: 4.1, negativeEmotionWords: 5.6 } },
-  { date: ago(4), riskScore: 63, riskLevel: 'Moderate', sentiment: -0.36, source: 'Manual', excerpt: 'I feel numb most days. Nothing really matters anymore.', markers: { firstPersonDensity: 9.3, absolutistLanguage: 4.6, negativeEmotionWords: 6.8 } },
-  { date: ago(3), riskScore: 71, riskLevel: 'High', sentiment: -0.52, source: 'CSV', excerpt: 'Everything is always pointless and I never feel okay anymore.', markers: { firstPersonDensity: 10.4, absolutistLanguage: 5.8, negativeEmotionWords: 8.1 } },
-  { date: ago(2), riskScore: 66, riskLevel: 'Moderate', sentiment: -0.41, source: 'Manual', excerpt: 'Trying to keep it together but I am exhausted and alone.', markers: { firstPersonDensity: 9.7, absolutistLanguage: 4.2, negativeEmotionWords: 6.4 } },
-  { date: ago(0, 5), riskScore: 74, riskLevel: 'High', sentiment: -0.58, source: 'Manual', excerpt: 'I feel completely hopeless and nothing I do ever helps.', markers: { firstPersonDensity: 11.2, absolutistLanguage: 6.3, negativeEmotionWords: 9.0 } },
+  { date: ago(13), riskScore: 24, riskLevel: 'Low', emotionalTone: 0.42, source: 'Manual', excerpt: 'Had a really good day with friends, grateful for small wins.', markers: { firstPersonDensity: 4.1, absolutistLanguage: 0.8, negativeEmotionWords: 1.2 } },
+  { date: ago(12), riskScore: 31, riskLevel: 'Low', emotionalTone: 0.18, source: 'CSV', excerpt: 'Long week but finally weekend, planning something fun.', markers: { firstPersonDensity: 5.0, absolutistLanguage: 1.0, negativeEmotionWords: 1.6 } },
+  { date: ago(10), riskScore: 38, riskLevel: 'Low', emotionalTone: 0.05, source: 'Manual', excerpt: 'Feeling a bit tired and flat lately, not sure why.', markers: { firstPersonDensity: 6.2, absolutistLanguage: 1.4, negativeEmotionWords: 3.1 } },
+  { date: ago(9), riskScore: 46, riskLevel: 'Moderate', emotionalTone: -0.12, source: 'CSV', excerpt: 'Everything feels heavier than it should. Sleep has been off.', markers: { firstPersonDensity: 7.4, absolutistLanguage: 2.6, negativeEmotionWords: 4.4 } },
+  { date: ago(8), riskScore: 44, riskLevel: 'Moderate', emotionalTone: -0.08, source: 'Manual', excerpt: 'Skipped plans again. I just did not have the energy.', markers: { firstPersonDensity: 6.9, absolutistLanguage: 2.1, negativeEmotionWords: 4.0 } },
+  { date: ago(7), riskScore: 52, riskLevel: 'Moderate', emotionalTone: -0.22, source: 'Manual', excerpt: 'I keep messing everything up and I am tired of trying.', markers: { firstPersonDensity: 8.8, absolutistLanguage: 3.4, negativeEmotionWords: 5.2 } },
+  { date: ago(6), riskScore: 49, riskLevel: 'Moderate', emotionalTone: -0.18, source: 'CSV', excerpt: 'Another sleepless night, mind will not stop racing.', markers: { firstPersonDensity: 7.1, absolutistLanguage: 2.2, negativeEmotionWords: 4.8 } },
+  { date: ago(5), riskScore: 58, riskLevel: 'Moderate', emotionalTone: -0.31, source: 'Manual', excerpt: 'Nobody really notices when I disappear for days anyway.', markers: { firstPersonDensity: 8.2, absolutistLanguage: 4.1, negativeEmotionWords: 5.6 } },
+  { date: ago(4), riskScore: 63, riskLevel: 'Moderate', emotionalTone: -0.36, source: 'Manual', excerpt: 'I feel numb most days. Nothing really matters anymore.', markers: { firstPersonDensity: 9.3, absolutistLanguage: 4.6, negativeEmotionWords: 6.8 } },
+  { date: ago(3), riskScore: 71, riskLevel: 'High', emotionalTone: -0.52, source: 'CSV', excerpt: 'Everything is always pointless and I never feel okay anymore.', markers: { firstPersonDensity: 10.4, absolutistLanguage: 5.8, negativeEmotionWords: 8.1 } },
+  { date: ago(2), riskScore: 66, riskLevel: 'Moderate', emotionalTone: -0.41, source: 'Manual', excerpt: 'Trying to keep it together but I am exhausted and alone.', markers: { firstPersonDensity: 9.7, absolutistLanguage: 4.2, negativeEmotionWords: 6.4 } },
+  { date: ago(0, 5), riskScore: 74, riskLevel: 'High', emotionalTone: -0.58, source: 'Manual', excerpt: 'I feel completely hopeless and nothing I do ever helps.', markers: { firstPersonDensity: 11.2, absolutistLanguage: 6.3, negativeEmotionWords: 9.0 } },
 ];
 
 const ALERT_MESSAGES = {
-  viewed: 'High concentration of negative sentiment detected in your recent submission. Your wellness matters — consider a short break or reaching out.',
+  viewed: 'Elevated negative-emotion language patterns detected in your recent submission. Your wellness matters — consider a short break or reaching out.',
   fresh: 'Elevated depression-related language patterns detected. We recommend reviewing crisis-support resources and talking to someone you trust.',
 };
 
@@ -96,7 +96,7 @@ async function seed() {
       postId: post._id, userId: demo._id,
       cleanedText: s.excerpt.toLowerCase(),
       tokens: s.excerpt.toLowerCase().split(/\s+/),
-      sentimentScore: s.sentiment,
+      emotionalToneScore: s.emotionalTone,
       markers: s.markers,
       processedAt: s.date,
     });

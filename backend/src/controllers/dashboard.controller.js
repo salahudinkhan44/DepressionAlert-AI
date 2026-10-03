@@ -1,6 +1,6 @@
 // Dashboard controller — Dashboard Module (M6, SDD 6).
 // Aggregated view of results, trends and alerts (FR-13) plus the live
-// sentiment-monitor feed (SDD 8.1.1), derived from the user's real
+// emotional-tone updates (SDD 8.1.1), derived from the user's real
 // analysis data — nothing is monitored automatically.
 import mongoose from 'mongoose';
 import AnalysisResult from '../models/AnalysisResult.js';
@@ -34,16 +34,16 @@ function buildMonitorFeed(items, pattern, newAlerts) {
   }
 
   if (latest && previous) {
-    const sentimentUp = latest.sentiment - previous.sentiment;
-    if (sentimentUp >= 0.2) {
+    const emotionalToneChange = latest.emotionalTone - previous.emotionalTone;
+    if (emotionalToneChange >= 0.2) {
       feed.push({
         icon: 'spark', tone: 'low', time: latest.date,
         text: 'Positive-affect terms increased in your most recent post.',
       });
-    } else if (sentimentUp <= -0.3) {
+    } else if (emotionalToneChange <= -0.3) {
       feed.push({
         icon: 'chart', tone: 'moderate', time: latest.date,
-        text: 'Sentiment polarity dropped versus your previous analysis.',
+        text: 'Your emotional tone score dropped versus your previous analysis.',
       });
     }
   }
@@ -84,7 +84,7 @@ function buildMonitorFeed(items, pattern, newAlerts) {
     .map((f, i) => ({ id: `m-${i + 1}`, ...f }));
 }
 
-// GET /api/dashboard/monitor — live sentiment monitor feed.
+// GET /api/dashboard/monitor — recent emotional-tone changes.
 export async function getMonitorFeed(req, res, next) {
   try {
     const docs = await AnalysisResult.find({ userId: req.user._id })

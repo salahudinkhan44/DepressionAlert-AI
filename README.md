@@ -10,7 +10,7 @@ Language Processing (NLP) and Machine Learning (ML).
 
 A registered user submits social-media posts — by **pasting text directly** or by **uploading a
 CSV file** — after granting explicit data-processing consent. The system cleans and tokenizes
-the text, extracts sentiment and linguistic features, and produces a **depression risk score
+the text, estimates emotional tone and extracts linguistic features, then produces a **depression risk score
 (0–100)** with a **risk level (Low / Moderate / High)**. Results are stored in the user's
 analysis history, behavioural trends are tracked over time, and a **high-risk alert with
 crisis-support resources** is raised when the score crosses the configured threshold.
@@ -25,7 +25,7 @@ begins only after explicit consent, which can be revoked at any time. All output
 
 - Provide an accessible, consent-driven tool for early awareness of depression-related
   language patterns in user-submitted text.
-- Apply NLP preprocessing (cleaning, tokenization, stop-word removal) and sentiment /
+- Apply NLP preprocessing (cleaning, tokenization, stop-word removal) and emotional-tone /
   linguistic feature extraction to each submission.
 - Generate a traceable depression risk score and risk level per analysis.
 - Maintain rolling behavioural-pattern averages (first-person pronoun density, absolutist
@@ -45,8 +45,8 @@ begins only after explicit consent, which can be revoked at any time. All output
 | **CSV batch upload** | Upload a `.csv` of posts; empty, malformed and duplicate rows are rejected |
 | **Risk scoring** | 0–100 score classified as Low (<40), Moderate (40–69), High (≥70) |
 | **Linguistic markers** | First-person pronoun density, absolutist language, negative-emotion words |
-| **Analysis history** | Every result with date, score, level, sentiment, and source |
-| **Behavioural trends** | Charts and summaries of score, sentiment and marker changes over time |
+| **Analysis history** | Every result with date, score, level, emotional tone, and source |
+| **Behavioural trends** | Charts and summaries of score, emotional tone and marker changes over time |
 | **High-risk alerts** | Non-alarming modal + alert list; status lifecycle New → Viewed / Dismissed |
 | **Crisis support** | Helplines, emergency contacts, breathing exercises, learning library |
 | **Live monitor feed** | Dashboard notifications derived from the user's recent analyses |
@@ -98,7 +98,7 @@ if High, create `Alert` + notify → dashboard reflects the result.
 1. **Data Collection** — `validateAndStorePost()`: consent check, manual/CSV ingest,
    deduplication and validation, `Post` persistence.
 2. **NLP Processing** — `preprocessText()`: symbol/URL removal, lowercasing, tokenization,
-   stop-word removal, sentiment score, feature vector → `ProcessedText`.
+   stop-word removal, emotional-tone score, feature vector → `ProcessedText`.
 3. **Depression Detection** — `computeRiskScore()`: classifier → `risk_score` (0–100) →
    `risk_level` (≥70 High, ≥40 Moderate, else Low) → `AnalysisResult`.
 4. **Behavioral Analysis** — `updateBehavioralPattern()`: rolling per-user linguistic-marker
@@ -136,11 +136,11 @@ consistent navigation.
 | `/register` | Registration | Name, email, password, explicit consent checkbox, inline validation |
 | `/login` | Login | Email + password, demo-account hints, error feedback |
 | `/forgot-password` `/reset-password` | Password reset | Request reset code → set new password |
-| `/dashboard` | Dashboard | Digital Sentiment Score gauge, 7-day usage-vs-mood chart, mood-by-platform breakdown, preventive-action shortcuts, live sentiment-monitor feed, quick actions |
-| `/daily-log` | Depression Evaluation | Paste text or upload CSV; linguistic-marker panel; Sentiment Volatility timeline; Post & Comment Deep Dive (Social Feed / Direct Messages toggle) |
-| `/analysis-result`, `/analysis/:id` | Analysis Result | Risk gauge, level badge, sentiment, detected indicators, plain-language explanation |
-| `/history` | Analysis History | Filterable table of all results (date, excerpt, source, sentiment, score, level) |
-| `/trends` | Behavioural Trends | Risk-score and sentiment charts, marker trends, change summary |
+| `/dashboard` | Dashboard | Depression Risk gauge, 7-day usage-vs-mood chart, mood-by-platform breakdown, preventive-action shortcuts, recent emotional-tone updates, quick actions |
+| `/daily-log` | Depression Evaluation | Paste text or upload CSV; linguistic-marker panel; emotional-tone timeline; Post & Comment Deep Dive (Social Feed / Direct Messages toggle) |
+| `/analysis-result`, `/analysis/:id` | Analysis Result | Risk gauge, level badge, emotional tone, detected indicators, plain-language explanation |
+| `/history` | Analysis History | Filterable table of all results (date, excerpt, source, emotional tone, score, level) |
+| `/trends` | Behavioural Trends | Risk-score and emotional-tone charts, marker trends, change summary |
 | `/alerts` | Alerts | High-risk alert list with View result / Resources / Mark viewed / Dismiss |
 | `/crisis-support` | Crisis Support | Helplines, immediate steps, coping toolkit, learning library |
 | `/detox` | 30-min Detox | Guided countdown timer logged against the active alert |
@@ -148,7 +148,7 @@ consistent navigation.
 | `/settings` | Settings | Mute Keywords, Enable Feed Filter, Schedule Nightly Pause |
 | `/viewer`, `/viewer/users/:id` | Authorized Viewer | Read-only caseload: latest score, trajectory, recent results |
 
-The **Sentiment Alert modal** appears after a high-risk submission with a non-alarming
+The **Risk Alert modal** appears after a high-risk submission with a non-alarming
 explanation and three actions: *Take a 30-min break* (status → Viewed), *View crisis-support
 resources* (→ Viewed), *Dismiss* (→ Dismissed).
 
@@ -227,19 +227,19 @@ All endpoints are under `/api`. All except `/api/auth/*` and `/api/health` requi
 | `GET /api/alerts` | User's alerts, newest first |
 | `PATCH /api/alerts/:id` | `{status: New\|Viewed\|Dismissed}` |
 | `GET /api/crisis-support` | Helplines, toolkit, articles |
-| `GET /api/dashboard/monitor` | Live sentiment-monitor feed derived from user data |
+| `GET /api/dashboard/monitor` | Recent emotional-tone changes derived from user data |
 | `GET /api/dashboard/summary` | Aggregated latest result, totals, alerts, rolling averages |
 
 ### 7.6 ML service (Python)
 
 Protected internal FastAPI service — reachable only by the backend via `X-API-Key`.
-Performs text cleaning, tokenization, stop-word removal, sentiment analysis, linguistic
+Performs text cleaning, tokenization, stop-word removal, emotional-tone analysis, linguistic
 feature extraction and depression-risk scoring.
 
 | Endpoint | Description |
 |---|---|
 | `GET /health` | Service + model status |
-| `POST /analyze` | `{text}` → cleaned text, tokens, sentiment, markers, indicators, feature vector, risk score/level, model version |
+| `POST /analyze` | `{text}` → cleaned text, tokens, `emotionalToneScore`, markers, indicators, feature vector, risk score/level, model version |
 | `POST /analyze/batch` | `{texts[]}` → array of results (CSV path) |
 | `POST /patterns/rolling` | `{markers[]}` → rolling averages |
 
@@ -259,7 +259,7 @@ integer PKs map to `_id`/ObjectId references.
 |---|---|
 | `users` | `name`, `email` (unique), `passwordHash` (bcrypt, never returned), `consentGiven`, `role` (`Standard`/`Authorized Viewer`), `settings`, `consentLog`, `activityLog`, `authorizedCases`, `createdAt` |
 | `posts` | `userId` → User, `content`, `source` (`Manual`/`CSV`), `kind`, `platform`, `submittedAt` |
-| `processedtexts` | `postId` → Post, `userId` → User, `cleanedText`, `tokens[]`, `sentimentScore` (−1..1), `markers`, `indicators[]`, `featureVector[]` |
+| `processedtexts` | `postId` → Post, `userId` → User, `cleanedText`, `tokens[]`, `emotionalToneScore` (−1..1), `markers`, `indicators[]`, `featureVector[]` |
 | `analysisresults` | `processedTextId` → ProcessedText, `postId` → Post, `userId` → User, `riskScore` (0–100), `riskLevel` (`Low`/`Moderate`/`High`), `modelVersion`, `analyzedAt` |
 | `behavioralpatterns` | `userId` → User (unique), `windowStart`, `windowEnd`, `firstPersonDensity`, `absolutistLanguage`, `negativeEmotionWords`, `analysisCount` |
 | `alerts` | `analysisResultId` → AnalysisResult, `userId` → User, `message`, `status` (`New`/`Viewed`/`Dismissed`), `channel`, `createdAt` |
@@ -316,7 +316,7 @@ persisted — raw files are never retained.
         ├── main.py                   # protected internal API
         ├── config.py
         ├── preprocessing/            # text_cleaner, tokenizer
-        ├── features/                 # sentiment, linguistic_features
+        ├── features/                 # emotional_tone, linguistic_features
         ├── detection/                # groq_scorer, model_loader, risk_scorer
         ├── behavioral/               # pattern_analyzer
         └── models/artifacts/         # trained model files (MODEL_VERSION)
@@ -456,7 +456,7 @@ node src/e2e.test.mjs
    demo account.
 2. From the Dashboard choose **New Evaluation** → paste a social-media post or upload a
    CSV (one post per row; a `text`/`content`/`post` column is detected automatically).
-3. View the result: risk gauge, level, sentiment, detected linguistic indicators.
+3. View the result: risk gauge, level, emotional tone, detected linguistic indicators.
 4. Track **History** and **Behavioural Trends** as more evaluations accumulate.
 5. A **High** result raises an alert (modal + Alerts page) with crisis-support resources —
    *Take a 30-min break* starts the detox timer; *Dismiss* closes it.

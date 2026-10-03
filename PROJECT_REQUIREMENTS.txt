@@ -43,7 +43,7 @@ M1 Data Collection      validateAndStorePost(userId, rawInput, sourceType)
                         - manual: reject empty -> Post(Manual)
 M2 NLP Processing       preprocessText(post) [Python service]
                         - removeSymbolsAndUrls, lowercase, tokenize,
-                          removeStopWords, computeSentiment -> ProcessedText
+                          removeStopWords, computeEmotionalTone -> ProcessedText
                         - extractFeatures -> featureVector
 M3 Depression Detection computeRiskScore(featureVector, processedTextId)
                         - model.predict_proba -> riskScore = raw*100
@@ -65,7 +65,7 @@ User              user_id PK | name | email | password_hash (salted) |
 Post              post_id PK | user_id FK | content text |
                   source enum(Manual, CSV) | submitted_at
 ProcessedText     processed_id PK | post_id FK | cleaned_text |
-                  tokens array<string> | sentiment_score float(-1..1)
+                  tokens array<string> | emotional_tone_score float(-1..1)
 AnalysisResult    analysis_id PK | processed_text_id FK |
                   risk_score float(0-100) |
                   risk_level enum(Low, Moderate, High) |
@@ -95,9 +95,9 @@ UC-4 Get Depression Evaluation: Submit Text or Upload CSV -> validate
 UC-5 View Risk Score: latest score + level Low/Medium/High + brief
    explanation. Errors: no result (prompt evaluation), retrieval failure.
 UC-6 View Analysis History: records by date — date, risk score, risk level,
-   sentiment; selectable detail. Errors: empty state, retrieval failure+retry.
+   emotional tone; selectable detail. Errors: empty state, retrieval failure+retry.
 UC-7 View Behavioural Trends: compare current vs previous — changes in risk
-   score, sentiment, emotional indicators; charts + summaries. Errors:
+   score, emotional tone, emotional indicators; charts + summaries. Errors:
    insufficient records (prompt more evaluations), analysis failure.
 UC-8 High-Risk Alert + Crisis Support: score > threshold -> store alert ->
    display alert -> display helplines/support resources/recommended actions
@@ -114,13 +114,13 @@ FR-4  manual text submission (paste)
 FR-5  CSV upload for batch analysis
 FR-6  validation of empty/malformed/invalid/duplicate records
 FR-7  preprocessing: strip symbols, stop words, irrelevant chars
-FR-8  tokenize + extract sentiment/emotional/linguistic features
+FR-8  tokenize + extract emotional-tone polarity and linguistic features
 FR-9  trained ML model -> risk score + risk level per analysis
 FR-10 behavioral trend analysis over time
 FR-11 auto-generate + store high-risk alert on threshold breach
 FR-12 display crisis-support resources with every high-risk alert
 FR-13 dashboard: latest score, level, alert status, analysis options
-FR-14 history: date, risk score, risk level, sentiment per record
+FR-14 history: date, risk score, risk level, emotional tone per record
 
 7. QUALITY ATTRIBUTES (SRS §5)
 ------------------------------
@@ -144,22 +144,22 @@ SEC-7 secure session termination; expired/invalid tokens rejected
 8. REQUIRED INTERFACES / PAGES (SRS §6.1 + SDD §8)
 --------------------------------------------------
 P1 Registration & Login
-P2 Dashboard — landing after login. Contents (SDD 8.1.1): Digital Sentiment
+P2 Dashboard — landing after login. Contents (SDD 8.1.1): Emotional Tone
    Score; 7-day usage-time-vs-mood chart; mood-impact-by-platform breakdown;
-   preventive-action shortcuts; live social-media sentiment monitor feed.
+   preventive-action shortcuts; recent emotional-tone changes.
 P3 Daily Log / Depression Evaluation (SDD 8.1.2): paste text or upload CSV;
    Linguistic Marker Analysis panel (first-person pronoun density,
-   absolutist language, negative-emotion words); Sentiment Volatility
-   timeline (hover -> date, sentiment score, risk flag); Post & Comment Deep
+   absolutist language, negative-emotion words); Emotional Tone
+   timeline (hover -> date, emotional-tone score, risk flag); Post & Comment Deep
    Dive panel with Social Feed / Direct Messages toggle.
-P4 Analysis Result: risk score, risk level, sentiment result,
+P4 Analysis Result: risk score, risk level, emotional tone result,
    emotional/linguistic indicators.
-P5 Sentiment Alert (MODAL, SDD 8.1.3): brief non-alarming explanation;
+P5 Risk Alert (MODAL, SDD 8.1.3): brief non-alarming explanation;
    "Take a 30-min break" -> status Viewed; "Dismiss" -> status Dismissed.
 P6 Crisis Support & Resources (SDD 8.1.4): helplines, emergency contacts,
    breathing exercises (START SESSION), guided meditation (OPEN),
    mood-boosting audio (OPEN PLAYLIST), learning library (articles on
-   sentiment tracking + AI in mental health).
+   emotional wellbeing + AI in mental health).
 P7 Analysis History.
 P8 Behavioural Trends.
 P9 Privacy & Profile: privacy info, consent grant/revoke, account details.
@@ -179,7 +179,7 @@ submission; CSV file upload; submission validation; analysis-result
 retrieval; analysis-history retrieval; behavioral-trend retrieval; alert
 generation + retrieval; crisis-support resource retrieval.
 Python service performs: text cleaning/preprocessing; tokenization;
-sentiment analysis; emotional + linguistic feature extraction;
+emotional-tone analysis; emotional + linguistic feature extraction;
 behavioral-pattern analysis; risk-score generation; risk-level
 classification. Communication = protected internal API.
 

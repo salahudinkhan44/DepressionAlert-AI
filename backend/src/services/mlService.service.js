@@ -1,7 +1,7 @@
 // ML service client.
 // Calls the protected internal Python NLP/ML service (SRS 6.2) at
 // ML_SERVICE_URL with ML_SERVICE_API_KEY. Sends submitted text and
-// receives cleaned text, tokens, sentiment score, feature data and the
+// receives cleaned text, tokens, emotional-tone score, feature data and the
 // depression risk score / risk level.
 import { config } from '../config/env.js';
 import { ApiError } from '../middleware/errorHandler.middleware.js';
@@ -42,7 +42,7 @@ async function callMlService(path, body) {
 }
 
 // preprocessText + computeRiskScore for a single post.
-// Returns { cleanedText, tokens, sentimentScore, markers, indicators,
+// Returns { cleanedText, tokens, emotionalToneScore, markers, indicators,
 //           featureVector, riskScore, riskLevel, modelVersion }
 export function analyzeText(text) {
   return callMlService('/analyze', { text });

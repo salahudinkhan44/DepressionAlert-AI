@@ -45,7 +45,7 @@ export default function LoginPage() {
   return (
     <AuthShell
       title="Welcome back"
-      sub="Log in to review your sentiment trends and continue monitoring."
+      sub="Log in to review your emotional tone trends and continue monitoring."
       footer={<>New to DepressionAlert AI? <Link to="/register">Create an account</Link></>}
     >
       {serverError && <div className="mb-2"><AlertBox type="danger">{serverError}</AlertBox></div>}

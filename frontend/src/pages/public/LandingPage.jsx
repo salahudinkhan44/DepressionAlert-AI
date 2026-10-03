@@ -8,7 +8,7 @@ import { Card } from '../../components/common/ui';
 const TOOLKIT = [
   { icon: 'journal', title: 'Depression Evaluation', desc: 'Paste a post or upload a CSV of past posts. The NLP engine cleans, tokenizes and scores the text for depressive linguistic patterns.' },
   { icon: 'spark', title: 'Risk Score & Level', desc: 'Every analysis returns a 0–100 risk score and a Low / Moderate / High level, with a plain-language explanation of the result.' },
-  { icon: 'chart', title: 'Behavioural Trends', desc: 'Track how your risk score, sentiment and emotional markers shift across submissions over time.' },
+  { icon: 'chart', title: 'Behavioural Trends', desc: 'Track how your risk score, emotional tone and linguistic markers shift across submissions over time.' },
   { icon: 'bell', title: 'Smart Alerts', desc: 'When a score crosses the high-risk threshold, a calm alert appears — with immediate access to crisis support.' },
   { icon: 'heart', title: 'Crisis Support Toolkit', desc: 'Helplines, breathing exercises, guided meditation and a learning library, always one click away.' },
   { icon: 'shield', title: 'Consent & Privacy', desc: 'Nothing is collected automatically. You grant — and can revoke — data-processing consent at any time.' },
@@ -16,7 +16,7 @@ const TOOLKIT = [
 
 const STEPS = [
   { title: 'Share your words', desc: 'Paste a social-media post or upload a CSV export — only after you explicitly consent.' },
-  { title: 'AI analyzes the text', desc: 'The NLP pipeline extracts sentiment and linguistic markers, then a trained ML model scores the result.' },
+  { title: 'AI analyzes the text', desc: 'The NLP pipeline estimates emotional tone and extracts linguistic markers, then a trained ML model scores the result.' },
   { title: 'See patterns early', desc: 'Your dashboard surfaces risk trends, linguistic markers and alerts — so changes never go unnoticed.' },
 ];
 
@@ -42,14 +42,14 @@ export default function LandingPage() {
         </div>
         <div className="hero-visual">
           <div className="flex between items-center mb-2">
-            <span className="small" style={{ opacity: .8 }}>Digital Sentiment Score</span>
+            <span className="small" style={{ opacity: .8 }}>Emotional Tone Score</span>
             <span className="badge" style={{ background: 'rgba(255,255,255,.15)', color: '#fff' }}>LIVE</span>
           </div>
           <div style={{ background: 'rgba(255,255,255,.08)', borderRadius: 16, padding: '1rem' }}>
             <RiskGauge score={34} size={210} />
           </div>
           <div className="flex gap-2 mt-2 wrap">
-            <span className="chip" style={{ background: 'rgba(255,255,255,.12)', border: 0, color: '#fff' }}>Sentiment trending up</span>
+            <span className="chip" style={{ background: 'rgba(255,255,255,.12)', border: 0, color: '#fff' }}>Emotional tone trending more positive</span>
             <span className="chip" style={{ background: 'rgba(255,255,255,.12)', border: 0, color: '#fff' }}>12 analyses</span>
           </div>
         </div>

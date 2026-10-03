@@ -11,7 +11,7 @@ export function analysisToClient(doc) {
     date: doc.analyzedAt,
     riskScore: doc.riskScore,
     riskLevel: doc.riskLevel,
-    sentiment: pt.sentimentScore ?? null,
+    emotionalTone: pt.emotionalToneScore ?? null,
     source: post.source || null,
     excerpt: (post.content || '').slice(0, 140),
     cleanedText: pt.cleanedText || '',

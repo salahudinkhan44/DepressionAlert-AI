@@ -1,6 +1,6 @@
 // Alert model (SDD 5.1).
 //   analysis_result_id: FK -> AnalysisResult (triggering result)
-//   message: String (e.g., high concentration of negative sentiment)
+//   message: String (e.g., elevated depression-related language markers)
 //   status: Enum (New, Viewed, Dismissed)
 //   created_at: DateTime
 // Notification hierarchy: base Notification -> InAppAlert / EmailAlert

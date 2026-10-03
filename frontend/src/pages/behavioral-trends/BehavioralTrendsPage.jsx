@@ -1,5 +1,5 @@
 // Behavioural Trends (SRS UC-7, FR-10) — charts + summaries of change in
-// risk score, sentiment and emotional/linguistic markers over time.
+// risk score, emotional tone and emotional/linguistic markers over time.
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../../components/icons';
@@ -32,7 +32,7 @@ export default function BehavioralTrendsPage() {
   const { points, markers, summary } = trends;
   const delta = summary.delta;
   const deltaTone = delta > 0 ? 'var(--high)' : delta < 0 ? 'var(--low)' : 'var(--ink-400)';
-  const sentimentSeries = points.map((p) => ({ date: p.date, score: Math.round((p.sentiment + 1) * 50) }));
+  const emotionalToneSeries = points.map((p) => ({ date: p.date, score: Math.round((p.emotionalTone + 1) * 50) }));
 
   return (
     <div>
@@ -47,9 +47,9 @@ export default function BehavioralTrendsPage() {
         <Card className="col-7" title="Risk score over time">
           <LineChart data={points} />
         </Card>
-        <Card className="col-5" title="Sentiment trajectory">
-          <LineChart data={sentimentSeries} color="var(--indigo-600)" />
-          <p className="small muted mt-1 mb-0">Sentiment polarity normalized to 0–100 (higher = more positive).</p>
+        <Card className="col-5" title="Emotional tone trajectory">
+          <LineChart data={emotionalToneSeries} color="var(--indigo-600)" />
+          <p className="small muted mt-1 mb-0">Emotional tone mapped to 0–100 (higher = more positive).</p>
         </Card>
 
         <Card className="col-7" title="Linguistic marker trends">

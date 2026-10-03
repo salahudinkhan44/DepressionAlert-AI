@@ -20,6 +20,12 @@ export async function connectDB() {
   await mongoose.connect(config.mongodbUri, {
     serverSelectionTimeoutMS: 10000,
   });
+
+  await mongoose.connection.collection('processedtexts').updateMany(
+    { sentimentScore: { $exists: true }, emotionalToneScore: { $exists: false } },
+    { $rename: { sentimentScore: 'emotionalToneScore' } }
+  );
+
   return mongoose.connection;
 }
 

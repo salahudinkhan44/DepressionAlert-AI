@@ -55,7 +55,7 @@ export default function ViewerCasePage() {
           <div className="grid-3" style={{ gap: '1rem' }}>
             <StatCard label="Analyses" value={detail.analyses.length} icon="file" tone="var(--indigo-600)" />
             <StatCard label="High-risk results" value={detail.analyses.filter((a) => a.riskLevel === 'High').length} icon="warning" tone="var(--high)" />
-            <StatCard label="Latest sentiment" value={latest?.sentiment ?? '—'} icon="chart" tone="var(--teal-700)" />
+            <StatCard label="Latest emotional tone" value={latest?.emotionalTone ?? '—'} icon="chart" tone="var(--teal-700)" />
           </div>
           <Card className="mt-2" title="Risk trajectory">
             <LineChart data={series} />
@@ -64,14 +64,14 @@ export default function ViewerCasePage() {
         <Card className="col-12" title="Recent results">
           <div className="table-wrap" style={{ border: 0 }}>
             <table className="table">
-              <thead><tr><th>Date</th><th>Risk score</th><th>Level</th><th>Sentiment</th></tr></thead>
+              <thead><tr><th>Date</th><th>Risk score</th><th>Level</th><th>Emotional tone</th></tr></thead>
               <tbody>
                 {detail.analyses.slice(0, 8).map((a) => (
                   <tr key={a.id}>
                     <td>{formatDateTime(a.date)}</td>
                     <td><ScorePill score={a.riskScore} /></td>
                     <td><Badge level={a.riskLevel} /></td>
-                    <td className="mono">{a.sentiment}</td>
+                    <td className="mono">{a.emotionalTone}</td>
                   </tr>
                 ))}
               </tbody>

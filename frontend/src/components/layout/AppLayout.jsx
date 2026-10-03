@@ -1,10 +1,10 @@
 // App shell: dark sidebar + sticky topbar + card-based content area
-// (SDD §8). Hosts the global SentimentAlertModal for New alerts (UC-8).
+// (SDD §8). Hosts the global RiskAlertModal for New alerts (UC-8).
 import { useState } from 'react';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Icon from '../icons';
-import SentimentAlertModal from '../alerts/SentimentAlertModal';
+import RiskAlertModal from '../alerts/RiskAlertModal';
 import { useAppData } from '../../context/AppDataContext';
 import { useAuth } from '../../context/AuthContext';
 
@@ -56,7 +56,7 @@ export default function AppLayout() {
           <Outlet />
         </main>
       </div>
-      <SentimentAlertModal alert={pendingAlert} />
+      <RiskAlertModal alert={pendingAlert} />
     </div>
   );
 }

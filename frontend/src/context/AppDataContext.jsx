@@ -13,7 +13,7 @@ export function AppDataProvider({ children }) {
   const [alerts, setAlerts] = useState([]);
   const [settings, setSettings] = useState(null);
   const [monitor, setMonitor] = useState([]);
-  const [pendingAlert, setPendingAlert] = useState(null); // -> SentimentAlertModal
+  const [pendingAlert, setPendingAlert] = useState(null); // -> risk alert modal
 
   const refresh = useCallback(async () => {
     if (!user) { setAnalyses([]); return; }

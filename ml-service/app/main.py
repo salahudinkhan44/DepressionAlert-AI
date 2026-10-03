@@ -1,7 +1,7 @@
 """Python NLP/ML service entry point.
 
 Protected internal API called only by the Node.js backend (SRS 6.2).
-Performs: text cleaning/preprocessing, tokenization, sentiment analysis,
+Performs: text cleaning/preprocessing, tokenization, emotional-tone analysis,
 emotional + linguistic feature extraction, behavioral-pattern analysis,
 depression-risk score generation and risk-level classification.
 
@@ -16,7 +16,7 @@ from .config import ML_SERVICE_API_KEY, MODEL_VERSION
 from .detection.model_loader import model_available
 from .detection.risk_scorer import compute_risk_score
 from .features.linguistic_features import extract_features
-from .features.sentiment import compute_sentiment
+from .features.emotional_tone import compute_emotional_tone
 from .preprocessing.text_cleaner import clean_text
 from .preprocessing.tokenizer import remove_stop_words, tokenize
 
@@ -55,20 +55,20 @@ def analyze_one(raw_text: str) -> dict:
     analysis_tokens = raw_tokens or tokens  # features count full tokens
 
     # First pass with a neutral risk hint, then rescore with the real one
-    # so sentiment polarity can reflect the final score.
-    provisional = compute_sentiment(analysis_tokens, cleaned, 50.0)
+    # so the final risk band can influence emotional-tone polarity.
+    provisional = compute_emotional_tone(analysis_tokens, cleaned, 50.0)
     markers, vector, indicators = extract_features(analysis_tokens, cleaned, provisional)
     risk_score, risk_level, model_version, explanation = compute_risk_score(
         vector, cleaned_text=cleaned, markers=markers
     )
-    sentiment = compute_sentiment(analysis_tokens, cleaned, risk_score)
+    emotional_tone = compute_emotional_tone(analysis_tokens, cleaned, risk_score)
     if explanation:
         indicators.append(explanation)
 
     return {
         "cleanedText": cleaned,
         "tokens": tokens,
-        "sentimentScore": sentiment,
+        "emotionalToneScore": emotional_tone,
         "markers": {
             "firstPersonDensity": markers["first_person_density"],
             "absolutistLanguage": markers["absolutist_language"],
@@ -103,6 +103,7 @@ async def analyze(req: AnalyzeRequest):
 async def analyze_batch(req: BatchRequest):
     results = [analyze_one(t) for t in req.texts if t and t.strip()]
     return {"results": results, "modelVersion": MODEL_VERSION}
+
 
 
 @app.post("/patterns/rolling", dependencies=[Depends(require_api_key)])

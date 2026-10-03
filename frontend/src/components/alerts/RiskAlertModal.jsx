@@ -1,4 +1,4 @@
-// Sentiment Alert modal (SRS UC-8, FR-11/FR-12; SDD 8.1.3).
+// Risk alert modal (SRS UC-8, FR-11/FR-12; SDD 8.1.3).
 // Non-alarming explanation + two actions:
 //   "Take a 30-min break" -> Alert status = Viewed, opens detox session
 //   "Dismiss"             -> Alert status = Dismissed
@@ -7,7 +7,7 @@ import Modal from '../common/Modal';
 import Icon from '../icons';
 import { useAppData } from '../../context/AppDataContext';
 
-export default function SentimentAlertModal({ alert }) {
+export default function RiskAlertModal({ alert }) {
   const { setAlertStatus } = useAppData();
   const navigate = useNavigate();
   if (!alert) return null;

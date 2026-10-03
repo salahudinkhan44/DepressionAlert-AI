@@ -1,5 +1,5 @@
 // Behavioral-trend routes (SRS 6.2, UC-7, FR-10).
-//   GET /api/trends   changes in risk score, sentiment and emotional
+//   GET /api/trends   changes in risk score, emotional tone and emotional
 //                     patterns across previous analyses
 import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.middleware.js';

@@ -4,7 +4,7 @@ import AnalysisResult from '../models/AnalysisResult.js';
 import BehavioralPattern from '../models/BehavioralPattern.js';
 import { analysisToClient } from '../utils/serializers.js';
 
-// GET /api/trends — changes in risk score, sentiment and emotional
+// GET /api/trends — changes in risk score, emotional tone and emotional
 // patterns across previous analyses, oldest -> newest.
 export async function getTrends(req, res, next) {
   try {
@@ -14,7 +14,7 @@ export async function getTrends(req, res, next) {
 
     const items = docs.map(analysisToClient);
     const points = items.map((a) => ({
-      date: a.date, score: a.riskScore, sentiment: a.sentiment, level: a.riskLevel,
+      date: a.date, score: a.riskScore, emotionalTone: a.emotionalTone, level: a.riskLevel,
     }));
     const markers = items.map((a) => ({ date: a.date, ...a.markers }));
 

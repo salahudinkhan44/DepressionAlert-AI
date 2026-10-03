@@ -87,7 +87,7 @@ export default function CrisisSupportPage() {
 
         {/* learning library */}
         <Card className="col-12" title="Learning library"
-          action={<span className="small muted">sentiment tracking & AI in mental health</span>}>
+          action={<span className="small muted">emotional tone insights &amp; AI in mental health</span>}>
           {articles.map((a) => (
             <div key={a.id} className="article-item" onClick={() => setArticle(a)}>
               <span className="article-thumb" style={{ background: 'var(--teal-50)', color: 'var(--teal-700)' }}>

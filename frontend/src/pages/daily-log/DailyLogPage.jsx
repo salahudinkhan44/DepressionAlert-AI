@@ -1,7 +1,7 @@
 // Daily Log / Depression Evaluation (SRS UC-4, FR-4..FR-8; SDD 8.1.2).
 //   - Submit Text / Upload CSV tabs with validation + processing state
 //   - Linguistic Marker Analysis panel
-//   - Sentiment Volatility timeline
+//   - Emotional tone timeline
 //   - Post & Comment Deep Dive (Social Feed / Direct Messages toggle)
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -190,13 +190,13 @@ export default function DailyLogPage() {
           )}
         </Card>
 
-        {/* ---------- sentiment volatility ---------- */}
-        <Card className="col-7" title="Sentiment Volatility"
+        {/* ---------- emotional tone ---------- */}
+        <Card className="col-7" title="Emotional Tone"
           action={<span className="small muted">last {Math.min(14, analyses.length)} analyses</span>}>
           {analyses.length ? (
             <VolatilityTimeline analyses={analyses} />
           ) : (
-            <EmptyState icon="chart" title="No timeline yet" text="Your sentiment timeline builds as you submit evaluations." />
+            <EmptyState icon="chart" title="No timeline yet" text="Your emotional tone history builds as you submit evaluations." />
           )}
         </Card>
 

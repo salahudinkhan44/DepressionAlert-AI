@@ -1,4 +1,4 @@
-// Semicircle gauge for the Digital Sentiment / depression risk score.
+// Semicircle gauge for the depression risk score.
 import { riskColor, riskLevel } from '../../utils/format';
 
 export default function RiskGauge({ score = 0, size = 190, label }) {

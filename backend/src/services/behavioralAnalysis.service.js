@@ -1,7 +1,7 @@
 // Behavioral analysis service.
 // updateBehavioralPattern() (SDD 6.5): maintains per-user rolling
 // averages of first-person pronoun density, absolutist language and
-// negative-emotion word frequency for the Sentiment Volatility timeline.
+// negative-emotion word frequency for the emotional-tone timeline.
 import BehavioralPattern from '../models/BehavioralPattern.js';
 
 // Fold one processed text's markers into the user's rolling average.

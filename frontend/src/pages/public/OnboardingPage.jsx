@@ -13,7 +13,7 @@ const SLIDES = [
   {
     icon: 'brain',
     title: 'AI reads the patterns',
-    text: 'Our NLP engine extracts sentiment and linguistic markers — first-person focus, absolutist language, negative-emotion words — and a trained model produces a 0–100 risk score.',
+    text: 'Our NLP engine estimates emotional tone and extracts linguistic markers — first-person focus, absolutist language, negative-emotion words — and a trained model produces a 0–100 risk score.',
   },
   {
     icon: 'heart',

@@ -1,4 +1,4 @@
-// Lightweight SVG line/area chart — risk & sentiment trends (FR-10).
+// Lightweight SVG line/area chart — risk and emotional-tone trends (FR-10).
 export default function LineChart({ data, xKey = 'date', yKey = 'score', height = 200, color = 'var(--teal-600)', max = 100, labels }) {
   if (!data?.length) return null;
   const W = 600, H = height, P = { t: 14, r: 10, b: 22, l: 30 };

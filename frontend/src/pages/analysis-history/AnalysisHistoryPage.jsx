@@ -1,5 +1,5 @@
 // Analysis History (SRS UC-6, FR-14) — previous results ordered by date:
-// date, risk score, risk level, sentiment; click a row for detail.
+// date, risk score, risk level, emotional tone; click a row for detail.
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../../components/icons';
@@ -52,7 +52,7 @@ export default function AnalysisHistoryPage() {
           <table className="table">
             <thead>
               <tr>
-                <th>Date</th><th>Excerpt</th><th>Source</th><th>Sentiment</th><th>Risk score</th><th>Level</th><th />
+                <th>Date</th><th>Excerpt</th><th>Source</th><th>Emotional tone</th><th>Risk score</th><th>Level</th><th />
               </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@ export default function AnalysisHistoryPage() {
                     </span>
                   </td>
                   <td><span className="badge badge-neutral">{a.source}</span></td>
-                  <td className="mono">{a.sentiment}</td>
+                  <td className="mono">{a.emotionalTone}</td>
                   <td><ScorePill score={a.riskScore} /></td>
                   <td><Badge level={a.riskLevel} /></td>
                   <td><Icon name="chevronRight" size={15} className="muted" /></td>

@@ -1,6 +1,6 @@
 // Mock NLP/ML analyzer — frontend stand-in for the Python service
 // (SRS §6.2). Produces the same shape the real backend will return:
-// cleaned text, tokens, sentiment score, linguistic markers, a 0-100
+// cleaned text, tokens, emotional-tone score, linguistic markers, a 0-100
 // depression risk score and a Low/Moderate/High level (SDD §5.1, §6.3).
 import { riskLevel } from './format';
 
@@ -52,7 +52,7 @@ export function analyzeText(rawText) {
   let score = 18 + negRatio * 340 + absRatio * 160 + Math.max(0, fpRatio - 0.04) * 160 - (pos / total) * 140;
   score = Math.max(4, Math.min(98, Math.round(score)));
 
-  const sentiment = Math.max(-1, Math.min(1, +(((pos - neg) / Math.max(pos + neg, 1)) * 0.9 + (score < 40 ? 0.15 : -0.15)).toFixed(2)));
+  const emotionalTone = Math.max(-1, Math.min(1, +(((pos - neg) / Math.max(pos + neg, 1)) * 0.9 + (score < 40 ? 0.15 : -0.15)).toFixed(2)));
 
   const markers = {
     firstPersonDensity: +((fp / total) * 100).toFixed(1),
@@ -70,7 +70,7 @@ export function analyzeText(rawText) {
   return {
     cleanedText: tokens.join(' '),
     tokens,
-    sentimentScore: sentiment,
+    emotionalToneScore: emotionalTone,
     riskScore: score,
     riskLevel: riskLevel(score),
     markers,
