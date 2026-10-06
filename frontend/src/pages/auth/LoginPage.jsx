@@ -42,36 +42,40 @@ export default function LoginPage() {
     }
   };
 
-  return (
-    <AuthShell
-      title="Welcome back"
-      sub="Log in to review your emotional tone trends and continue monitoring."
-      footer={<>New to DepressionAlert AI? <Link to="/register">Create an account</Link></>}
-    >
-      {serverError && <div className="mb-2"><AlertBox type="danger">{serverError}</AlertBox></div>}
-      <form onSubmit={submit} noValidate>
-        <FormField label="Email address" error={errors.email}>
-          <input type="email" value={form.email} onChange={set('email')}
-            placeholder="you@example.com" className={errors.email ? 'invalid' : ''}
-            autoComplete="email" />
-        </FormField>
-        <PasswordInput value={form.password} onChange={set('password')} error={errors.password} />
-        <div className="flex between items-center mb-2">
-          <span />
-          <Link to="/forgot-password" className="small">Forgot password?</Link>
+  return ( 
+  <div style={{marginLeft: '400px' , marginRight: '200px'}}> 
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100%' , marginLeft: '100px' }}>
+      <AuthShell
+        title="Welcome back"
+        sub="Log in to review your emotional tone trends and continue monitoring."
+        footer={<>New to DepressionAlert AI? <Link to="/register">Create an account</Link></>}
+      >
+        {serverError && <div className="mb-2"><AlertBox type="danger">{serverError}</AlertBox></div>}
+        <form onSubmit={submit} noValidate>
+          <FormField label="Email address" error={errors.email}>
+            <input type="email" value={form.email} onChange={set('email')}
+              placeholder="you@example.com" className={errors.email ? 'invalid' : ''}
+              autoComplete="email" />
+          </FormField>
+          <PasswordInput value={form.password} onChange={set('password')} error={errors.password} />
+          <div className="flex between items-center mb-2">
+            <span />
+            <Link to="/forgot-password" className="small">Forgot password?</Link>
+          </div>
+          <button className="btn btn-primary btn-block btn-lg" disabled={busy}>
+            {busy ? <span className="spinner" style={{ borderTopColor: '#fff', borderColor: 'rgba(255,255,255,.3)' }} /> : <Icon name="logout" size={16} style={{ transform: 'scaleX(-1)' }} />}
+            {busy ? 'Signing in…' : 'Log in'}
+          </button>
+        </form>
+        <div className="alert alert-info mt-3">
+          <Icon name="info" size={16} />
+          <div className="small">
+            <b>Demo accounts</b> — user: <span className="mono">demo@depalert.ai / demo1234</span> ·
+            viewer: <span className="mono">viewer@depalert.ai / viewer1234</span>
+          </div>
         </div>
-        <button className="btn btn-primary btn-block btn-lg" disabled={busy}>
-          {busy ? <span className="spinner" style={{ borderTopColor: '#fff', borderColor: 'rgba(255,255,255,.3)' }} /> : <Icon name="logout" size={16} style={{ transform: 'scaleX(-1)' }} />}
-          {busy ? 'Signing in…' : 'Log in'}
-        </button>
-      </form>
-      <div className="alert alert-info mt-3">
-        <Icon name="info" size={16} />
-        <div className="small">
-          <b>Demo accounts</b> — user: <span className="mono">demo@depalert.ai / demo1234</span> ·
-          viewer: <span className="mono">viewer@depalert.ai / viewer1234</span>
-        </div>
-      </div>
-    </AuthShell>
+      </AuthShell>
+    </div>
+    </div>
   );
 }

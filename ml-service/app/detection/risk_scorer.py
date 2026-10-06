@@ -12,6 +12,7 @@ Scoring order:
 """
 from .groq_scorer import groq_available, score_with_groq
 from .model_loader import load_model
+# pyrefly: ignore [missing-import]
 from ..config import MODEL_VERSION
 
 HIGH_RISK_THRESHOLD = 70

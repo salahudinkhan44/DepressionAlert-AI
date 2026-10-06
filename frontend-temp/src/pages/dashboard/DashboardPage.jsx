@@ -149,9 +149,9 @@ export default function DashboardPage() {
                 tone="var(--moderate)"
               />
             </div>
-            <Card className="mt-2" title="Mood impact by platform">
+            {/* <Card className="mt-2" title="Mood impact by platform">
               <DonutChart data={PLATFORM_MOOD} />
-            </Card>
+            </Card> */}
           </div>
 
           {/* preventive actions */}
@@ -182,7 +182,7 @@ export default function DashboardPage() {
           </Card>
 
           {/* monitor feed */}
-          <Card
+          {/* <Card
             className="col-5"
             title="Live emotional-tone updates"
             action={<span className="badge badge-teal pulse">LIVE</span>}>
@@ -202,7 +202,7 @@ export default function DashboardPage() {
                 </div>
               </div>
             ))}
-          </Card>
+          </Card> */}
 
           {/* toolkit navigation */}
           <div className="col-7">

@@ -1,4 +1,4 @@
-// Shared two-panel auth layout — brand story on the left, form on right.
+// Shared auth layout — a single centred card (login, register, reset).
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../../components/icons';
@@ -6,24 +6,8 @@ import { Brand } from '../../components/layout/PublicLayout';
 
 export default function AuthShell({ title, sub, children, footer }) {
   return (
-    <div className="auth-wrap">
-      <aside className="auth-aside">
-        <Brand />
-        <div>
-          <p className="quote">
-            "Technology serving as an early warning system — so no one has to struggle
-            in silence because help came too late."
-          </p>
-          <p className="small" style={{ opacity: .7 }}>
-            Consent-based · Private by design · Built to complement professional care
-          </p>
-        </div>
-        <div className="flex gap-2 wrap">
-          {['Consent first', 'Your data, your control', 'Advisory insights'].map((t) => (
-            <span key={t} className="chip" style={{ background: 'rgba(255,255,255,.1)', border: 0, color: '#cbd5e1' }}>{t}</span>
-          ))}
-        </div>
-      </aside>
+    <div className="auth-wrap .auth-wrap { min-height: 100vh; display: flex; }
+.auth-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; }">
       <main className="auth-main">
         <div className="auth-card">
           <div className="auth-logo"><Brand /></div>

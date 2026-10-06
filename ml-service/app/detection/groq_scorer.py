@@ -12,6 +12,7 @@ import json
 
 import requests
 
+# pyrefly: ignore [missing-import]
 from ..config import GROQ_API_KEY, GROQ_API_URL, GROQ_MODEL
 
 _SYSTEM_PROMPT = (

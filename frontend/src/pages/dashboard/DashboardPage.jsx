@@ -149,13 +149,13 @@ export default function DashboardPage() {
                 tone="var(--moderate)"
               />
             </div>
-            <Card className="mt-2" title="Mood impact by platform">
+            {/* <Card className="mt-2" title="Mood impact by platform">
               <DonutChart data={PLATFORM_MOOD} />
-            </Card>
+            </Card> */}
           </div>
 
           {/* 7-day chart */}
-          <Card
+          {/* <Card
             className="col-7"
             title="7-day impact"
             action={
@@ -170,10 +170,10 @@ export default function DashboardPage() {
             <p className="small muted mt-1 mb-0">
               Heavier usage days correlate with lower mood scores this week.
             </p>
-          </Card>
+          </Card> */}
 
           {/* preventive actions */}
-          <Card className="col-5" title="Preventive actions">
+          {/* <Card className="col-5" title="Preventive actions">
             {PREVENTIVE.map((p) => (
               <Link
                 key={p.label}
@@ -197,10 +197,10 @@ export default function DashboardPage() {
             <Link to="/detox" className="btn btn-dark btn-block mt-2">
               <Icon name="clock" size={16} /> START 30-MIN DETOX
             </Link>
-          </Card>
+          </Card> */}
 
           {/* monitor feed */}
-          <Card
+          {/* <Card
             className="col-5"
             title="Live emotional-tone updates"
             action={<span className="badge badge-teal pulse">LIVE</span>}>
@@ -220,7 +220,7 @@ export default function DashboardPage() {
                 </div>
               </div>
             ))}
-          </Card>
+          </Card> */}
 
           {/* toolkit navigation */}
           <div className="col-7">

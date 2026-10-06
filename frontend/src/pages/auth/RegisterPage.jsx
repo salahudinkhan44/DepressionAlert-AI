@@ -44,10 +44,12 @@ export default function RegisterPage() {
   };
 
   return (
+    <div style={{marginLeft: '600px' , marginRight: '200px'}}> 
     <AuthShell
       title="Create your account"
       sub="Start monitoring your wellbeing privately — nothing is analyzed without your consent."
       footer={<>Already registered? <Link to="/login">Log in</Link></>}
+      
     >
       {serverError && <div className="mb-2"><AlertBox type="danger">{serverError}</AlertBox></div>}
       <form onSubmit={submit} noValidate>
@@ -80,5 +82,6 @@ export default function RegisterPage() {
         </button>
       </form>
     </AuthShell>
+    </div>
   );
 }

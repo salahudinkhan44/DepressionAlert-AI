@@ -47,9 +47,13 @@
   --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --sidebar-w: 264px;
 }
-
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--font);
@@ -58,7 +62,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 15px;
   line-height: 1.55;
-}
+} */
 h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 .5rem; font-weight: 700; letter-spacing: -.01em; }
 h1 { font-size: 1.9rem; }
 h2 { font-size: 1.35rem; }
